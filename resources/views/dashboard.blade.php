@@ -1,17 +1,20 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('You can order now') }}
-        </h2>
-    </x-slot>
 
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    {{ __("Start doing your order") }}
+            <div class="flex justify-center overflow-hidden shadow-sm sm:rounded-sm">
+                <div class="flex items-center justify-center w-1/2 bg-gray-300 text-gray-800 px-6 py-12 text-xl mx-1 rounded-md shadow-md">
+                    <div class="flex items-center justify-center w-1/2 bg-black text-gray-200 p-6 rounded-sm">
+                        Pida a domicilio
+                    </div>
+                </div>
+                <div class="flex items-center min-h-svh justify-center w-1/2 bg-black text-gray-200 p-6 py-12 text-xl mx-1 rounded-md shadow-md">
+                    <div class="flex items-center justify-center w-1/2 bg-gray-300 text-gray-800 p-6 rounded-sm">
+                        Reserve una mesa
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
 </x-app-layout>

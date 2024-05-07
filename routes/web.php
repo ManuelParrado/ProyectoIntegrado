@@ -21,4 +21,4 @@ require __DIR__ . '/auth.php';
 Route::resource('user', UserController::class);
 Route::resource('order', OrderController::class);
 Route::resource('dish', DishController::class);
-Route::resource('table', TableController::class);
+Route::resource('table', TableController::class)->middleware(['auth']);
