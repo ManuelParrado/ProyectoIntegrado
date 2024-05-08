@@ -11,7 +11,7 @@ class Table extends Model
 
     protected $fillable = [
         'capacity',
-        'nomber'
+        'number'
     ];
 
     public function users()

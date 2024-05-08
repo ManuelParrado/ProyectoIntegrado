@@ -12,9 +12,7 @@ class DishController extends Controller
      */
     public function index()
     {
-        $dishes = Dish::all();
-
-        return view('web_restaurant.dish')->with('dishes', $dishes);
+        return view('web_restaurant.dish');
     }
 
     /**

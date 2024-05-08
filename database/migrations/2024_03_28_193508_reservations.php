@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -18,7 +19,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_table');
             $table->foreign('id_table')->references('id')->on('tables');
             $table->date('date');
-            $table->time('timeslot');
+            $table->string('timeslot');
             $table->softDeletes();
             $table->timestamps();
         });

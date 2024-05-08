@@ -29,7 +29,7 @@
 
                     <x-slot name="content">
                         <button class="w-full text-start">
-                            <x-dropdown-link>
+                            <x-dropdown-link :href="route('table.index')" wire:navigate>
                                 {{ __('Reservar mesa') }}
                             </x-dropdown-link>
                         </button>

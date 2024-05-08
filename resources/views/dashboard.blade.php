@@ -10,7 +10,7 @@
                 </div>
                 <div class="flex items-center min-h-svh justify-center w-1/2 bg-black text-gray-200 p-6 py-12 text-xl mx-1 rounded-md shadow-md">
                     <div class="flex items-center justify-center w-1/2 bg-gray-300 text-gray-800 p-6 rounded-sm">
-                        Reserve una mesa
+                        <a href="{{ route('table.index') }}">Reserve una mesa</a>
                     </div>
                 </div>
             </div>
