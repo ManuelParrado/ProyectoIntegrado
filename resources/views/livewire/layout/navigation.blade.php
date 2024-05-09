@@ -1,5 +1,5 @@
 <div>
-    <nav x-data="{ open: false }" class="bg-black shadow-lg p-1 text-lg">
+    <nav x-data="{ open: false }" class="navbar bg-black shadow-lg p-1 text-lg">
         <!-- Primary Navigation Menu -->
         <div class="max-w-7xl h-24 mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
             <!-- Logo -->

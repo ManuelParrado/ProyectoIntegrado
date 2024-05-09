@@ -23,12 +23,22 @@ export default {
                         opacity: '1'
                     },
                 },
+                fadeOn: {
+                    '0%': {
+                        opacity: '1'
+                    },
+                    '100%': {
+                        opacity: '0'
+                    },
+                }
             },
             animation: {
                 fadeIn: 'fadeIn 2s ease-in-out',
+                fadeOn: 'fadeOn 2s ease-in-out',
             },
         },
     },
+
 
     plugins: [forms],
 };

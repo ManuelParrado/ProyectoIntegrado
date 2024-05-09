@@ -16,6 +16,17 @@ class ShowTable extends Component
     public $reservationTimeslot;
     public $errorMessage = '';
     public $errorMessageClass = '';
+    public $modalIsOpen = false;
+
+    public function openModal()
+    {
+        $this->modalIsOpen = true;
+    }
+
+    public function closeModal()
+    {
+        $this->modalIsOpen = false;
+    }
 
     public function mount()
     {

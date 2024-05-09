@@ -2,17 +2,20 @@
 
 namespace App\Livewire;
 
-use App\Models\Dish;
+use App\Models\Table;
 use Livewire\Component;
 
 class ShowDish extends Component
 {
-    public $dishes;
+    public $tables;
+
+    public function mount()
+    {
+        $this->tables = Table::all();
+    }
 
     public function render()
     {
-        $this->dishes = Dish::all();
-
         return view('livewire.web_restaurant.show-dish');
     }
 }
