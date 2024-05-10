@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\Table;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 
@@ -11,11 +12,13 @@ class ShowDashboard extends Component
 
     public $isSearchModalVisible = false;
     public $isReservationModalVisible = false;
+    public $isConfirmationModalVisible = false;
     public $tables = [];
     public $id_tables_reserved = [];
     public $reservationTimeslot = '20:00 - 21:00';
     public $reservationDate = null;
-    public $comprationReserverErrorMessage = '';
+    public $comprobationSearchErrorMessage = '';
+    public $comprobationReserveErrorMessage = '';
     public $tableCapacity = '';
     public $tableNumber = '';
 
@@ -27,7 +30,7 @@ class ShowDashboard extends Component
     public function reserveComprobation()
     {
         if ($this->reservationDate != null) {
-            $this->comprationReserverErrorMessage = '';
+            $this->comprobationSearchErrorMessage = '';
 
             $this->id_tables_reserved = DB::table('user_table')
                 ->select('id_table')
@@ -40,7 +43,7 @@ class ShowDashboard extends Component
 
             $this->showReservationModal();
         } else {
-            $this->comprationReserverErrorMessage = 'Introduzca bien los datos de búsqueda';
+            $this->comprobationSearchErrorMessage = 'Introduzca los datos de búsqueda correctamente';
         }
     }
 
@@ -50,6 +53,20 @@ class ShowDashboard extends Component
 
         $this->tableNumber = $table->number;
         $this->tableCapacity = $table->capacity;
+    }
+
+    public function doReservation()
+    {
+        DB::table('user_table')->insert([
+            'id_table' => $this->tableNumber,
+            'id_user' => Auth::user()->id,
+            'date' => $this->reservationDate,
+            'timeslot' => $this->reservationTimeslot,
+            'created_at' => now(),
+            'updated_at' => now()
+        ]);
+
+        redirect('dashboard');
     }
 
     public function showSearchModal()
@@ -70,10 +87,25 @@ class ShowDashboard extends Component
 
     public function hideReservationModal()
     {
+        $this->showSearchModal();
         $this->isReservationModalVisible = false;
     }
-
-    public function refresh()
+    public function showConfirmationModal()
     {
+        if (
+            $this->tableCapacity != null &&
+            $this->tableNumber != null &&
+            $this->reservationDate != null &&
+            $this->reservationTimeslot != null
+        ) {
+            $this->comprobationReserveErrorMessage = '';
+            $this->isConfirmationModalVisible = true;
+        } else
+            $this->comprobationReserveErrorMessage = 'Seleccione una mesa';
+    }
+
+    public function hideConfirmationModal()
+    {
+        $this->isConfirmationModalVisible = false;
     }
 }

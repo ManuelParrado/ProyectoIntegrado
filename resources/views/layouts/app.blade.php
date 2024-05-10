@@ -16,7 +16,9 @@
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100">
-            <livewire:navbar />
+            <div class="sticky top-0 z-30">
+                <livewire:navbar />
+            </div>
 
             <!-- Page Heading -->
             @if (isset($header))

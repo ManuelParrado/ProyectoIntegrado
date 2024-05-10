@@ -33,7 +33,7 @@ class User extends Authenticatable
 
     public function tables()
     {
-        return $this->belongsToMany(Table::class, 'user_table');
+        return $this->belongsToMany(Table::class)->withPivot('date', 'timeslot');
     }
 
     /**
