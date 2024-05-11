@@ -1,3 +1,3 @@
 <x-app-layout>
-    @livewire('showdashboard')
+    <livewire:showdashboard />
 </x-app-layout>

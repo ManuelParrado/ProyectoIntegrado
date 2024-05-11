@@ -31,6 +31,7 @@
 
             <!-- Page Content -->
             <main>
+                @livewire('showreservationtablemodals')
                 {{ $slot }}
             </main>
         </div>
