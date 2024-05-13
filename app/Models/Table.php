@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Table extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [
         'capacity',
@@ -16,6 +17,6 @@ class Table extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('date', 'timeslot');
+        return $this->belongsToMany(User::class)->withPivot('date', 'timeslot', 'deleted_at');
     }
 }

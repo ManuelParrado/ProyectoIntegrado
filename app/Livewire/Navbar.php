@@ -24,4 +24,11 @@ class Navbar extends Component
     {
         $this->dispatch('showSidebar');
     }
+
+    public function logout(Logout $logout): void
+    {
+        $logout();
+
+        $this->redirect('/', navigate: true);
+    }
 }

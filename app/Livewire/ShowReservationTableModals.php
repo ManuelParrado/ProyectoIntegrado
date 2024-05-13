@@ -33,12 +33,12 @@ class ShowReservationTableModals extends Component
         if ($this->reservationDate != null) {
             $this->comprobationSearchErrorMessage = '';
 
-            $this->id_tables_reserved = DB::table('user_table')
-                ->select('id_table')
+            $this->id_tables_reserved = DB::table('table_user')
+                ->select('table_id')
                 ->where('date', '=', $this->reservationDate)
                 ->where('timeslot', '=', $this->reservationTimeslot)
                 ->get()
-                ->pluck('id_table');
+                ->pluck('table_id');
 
             $this->tables = Table::all();
 
@@ -58,9 +58,9 @@ class ShowReservationTableModals extends Component
 
     public function doReservation()
     {
-        DB::table('user_table')->insert([
-            'id_table' => $this->tableNumber,
-            'id_user' => Auth::user()->id,
+        DB::table('table_user')->insert([
+            'table_id' => $this->tableNumber,
+            'user_id' => Auth::user()->id,
             'date' => $this->reservationDate,
             'timeslot' => $this->reservationTimeslot,
             'created_at' => now(),

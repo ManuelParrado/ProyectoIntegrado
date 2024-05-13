@@ -34,7 +34,7 @@
                             </x-dropdown-link>
                         </button>
                         <button class="w-full text-start">
-                            <x-dropdown-link>
+                            <x-dropdown-link wire:click='logout'>
                                 {{ __('Pedir a domicilio') }}
                             </x-dropdown-link>
                         </button>

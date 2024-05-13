@@ -1,3 +1,3 @@
 <x-app-layout>
-    @livewire('showdish')
+    <livewire:showdish />
 </x-app-layout>
