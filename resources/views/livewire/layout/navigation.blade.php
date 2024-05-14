@@ -41,7 +41,7 @@
                     </x-slot>
                 </x-dropdown>
                 @auth
-                    <button id="btn-message" class="button-message" data-drawer-target="drawer-navigation" data-drawer-show="drawer-navigation" aria-controls="drawer-navigation">
+                    <a id="btn-message" class="button-message" href="{{ route('profile') }}">
                         <div class="content-avatar">
                             <div class="avatar">
                                 <svg class="user-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,12.5c-3.04,0-5.5,1.73-5.5,3.5s2.46,3.5,5.5,3.5,5.5-1.73,5.5-3.5-2.46-3.5-5.5-3.5Zm0-.5c1.66,0,3-1.34,3-3s-1.34-3-3-3-3,1.34-3,3,1.34,3,3,3Z"></path></svg>
@@ -75,7 +75,7 @@
                                 {{ auth()->user()->email }}
                             </div>
                         </div>
-                    </button>
+                    </a>
                 @else
                     <x-nav-link :href="route('login')" :active="request()->routeIs('login')" wire:navigate>
                         {{ __('Inicia Sesión') }}

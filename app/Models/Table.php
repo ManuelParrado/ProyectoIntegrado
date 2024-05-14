@@ -17,6 +17,6 @@ class Table extends Model
 
     public function users()
     {
-        return $this->belongsToMany(User::class)->withPivot('date', 'timeslot', 'deleted_at');
+        return $this->belongsToMany(User::class)->withPivot('id', 'date', 'timeslot', 'deleted_at', 'created_at', 'updated_at');
     }
 }

@@ -34,7 +34,7 @@ class User extends Authenticatable
 
     public function tables()
     {
-        return $this->belongsToMany(Table::class)->withPivot('date', 'timeslot', 'deleted_at');
+        return $this->belongsToMany(Table::class)->withPivot('id', 'date', 'timeslot', 'deleted_at', 'created_at', 'updated_at');
     }
 
     /**

@@ -3,18 +3,20 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Livewire\Attributes\On;
 use Livewire\Component;
 
 class ShowReservations extends Component
 {
 
+    public $isReservationCancelVisible = false;
     public $filter;
     public $reservations;
 
     public function mount()
     {
         $this->filter = 'all';
-        $this->reservations = User::find(auth()->user()->id)->tables()->get();
+        $this->searchReservations();
     }
 
     public function render()
@@ -22,25 +24,13 @@ class ShowReservations extends Component
         return view('livewire.web_restaurant.show-reservations');
     }
 
-    public function setFilterAll()
+    public function showDeleteModal($reservation)
     {
-        $this->filter = 'all';
         $this->searchReservations();
+        $this->dispatch('showDeleteModal', reservation: $reservation);
     }
 
-    public function setFilterActive()
-    {
-        $this->filter = 'active';
-        $this->searchReservations();
-    }
-
-    public function setFilterCancelled()
-    {
-
-        $this->filter = 'cancelled';
-        $this->searchReservations();
-    }
-
+    #[On('refresh')]
     public function searchReservations()
     {
         switch ($this->filter) {

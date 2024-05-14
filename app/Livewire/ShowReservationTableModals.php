@@ -25,7 +25,7 @@ class ShowReservationTableModals extends Component
 
     public function render()
     {
-        return view('livewire.web_restaurant.show-reservation-table-modals');
+        return view('livewire.web_restaurant.modals.show-reservation-table-modals');
     }
 
     public function reserveComprobation()

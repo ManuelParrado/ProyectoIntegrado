@@ -11,7 +11,7 @@ class ShowUserSidebar extends Component
     public $isSidebarVisible = false;
     public function render()
     {
-        return view('livewire.web_restaurant.show-user-sidebar');
+        return view('livewire.web_restaurant.sidebars.show-user-sidebar');
     }
 
     #[On('showSidebar')]
