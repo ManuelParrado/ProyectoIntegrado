@@ -19,12 +19,13 @@ class ShowCancelReservationModal extends Component
         return view('livewire.web_restaurant.modals.show-cancel-reservation-modal');
     }
 
-    #[On('showDeleteModal')]
-    public function showConfirmationModal($reservation)
+    #[On('showConfirmationDeleteModal')]
+    public function showConfirmationDeleteModal($reservation)
     {
+
         $this->reservation = $reservation;
-        $this->reservationDate = $reservation['pivot']['date'];
-        $this->reservationTimeslot = $reservation['pivot']['timeslot'];
+        $this->reservationDate = $this->reservation['date'];
+        $this->reservationTimeslot = $this->reservation['timeslot'];
         $this->isConfirmationModalVisible = true;
     }
 
@@ -36,7 +37,7 @@ class ShowCancelReservationModal extends Component
     public function doCancelReservation()
     {
         DB::table('table_user')
-            ->where('id', $this->reservation['pivot']['id'])
+            ->where('id', $this->reservation['id'])
             ->update(['deleted_at' => now()]);
 
         $this->dispatch('refresh');

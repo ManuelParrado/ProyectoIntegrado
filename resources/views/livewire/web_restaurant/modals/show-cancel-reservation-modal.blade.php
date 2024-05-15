@@ -1,6 +1,6 @@
 <div>
     <div class="{{$isConfirmationModalVisible ? '' : 'hidden'}} shadow-xl fixed inset-0 z-50 overflow-y-auto bg-gray-900 bg-opacity-60 flex justify-center items-center">
-        <div id="popup-modal" tabindex="-1" class="fixed inset-0 z-50 overflow-y-auto bg-gray-900 bg-opacity-60 flex justify-center items-center">
+        <div tabindex="-1" class="fixed inset-0 z-50 overflow-y-auto bg-gray-900 bg-opacity-60 flex justify-center items-center">
             <div class="relative p-4 mx-auto max-w-md">
                 <div class="relative bg-white rounded-lg shadow">
                     <button type="button" wire:click="hideConfirmationModal" class="absolute top-3 right-3 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 inline-flex justify-center items-center" data-modal-hide="popup-modal">

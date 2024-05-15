@@ -1,9 +1,9 @@
 <div>
     <div class="py-2">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 text-lg">
             <h1 class="text-3xl font-bold text-gray-800 p-2">Mis Reservas</h1>
             <div class="flex overflow-hidden shadow-md rounded-md bg-gray-200">
-                <aside id="separator-sidebar" class="bg-gray-50 p-4 w-1/4" aria-label="Sidebar">
+                <aside id="separator-sidebar" class="bg-gray-50 p-4 w-1/3" aria-label="Sidebar">
                     <div class="h-full overflow-y-auto">
                         <ul class="space-y-2 font-medium">
                             <li>
@@ -28,31 +28,31 @@
                     </div>
                 </aside>
                 <div class="w-full flex justify-center items-center">
-                    <div class="w-2/3 p-4 h-full space-y-4 flex-row text-center text-lg">
+                    <div class="w-2/3 p-4 h-full space-y-4 flex-row text-lg">
                         @if($reservations->count() == 0)
-                            <p class="bg-gray-50 p-2 shadow-md rounded-sm">No se encuentran reservas</p>
+                            <p class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">No se encuentran reservas</p>
                         @else
                             @foreach ($reservations as $reservation)
-                                <div class="bg-gray-50 p-4 w-full shadow-md rounded-sm space-x-5 flex justify-around">
-                                    <div>
-                                        <span class="block">Fecha de reserva: {{\Carbon\Carbon::parse($reservation->pivot->date)->format('d/m/Y')}}</span>
-                                        <span class="block">Hora: {{$reservation->pivot->timeslot}}</span>
-                                        <span class="block">Número de mesa: {{$reservation->number}}</span>
-                                        <span class="block">Capacidad: {{$reservation->capacity}}</span>
-                                        @if ($reservation->pivot->deleted_at != null)
-                                            <span class="block text-red-500 font-bold">Cancelada</span>
+                                <div class="bg-gray-50 py-4 px-6 w-full shadow-md rounded-md flex justify-around items-center">
+                                    <div class="inline-grid w-full">
+                                        <span class="pb-3">Creación de la reserva: {{\Carbon\Carbon::parse($reservation->created_at)->format('d/m/Y')}}</span>
+                                        <span>Fecha de reserva: {{\Carbon\Carbon::parse($reservation->date)->format('d/m/Y')}}</span>
+                                        <span>Hora: {{$reservation->timeslot}}</span>
+                                        @if ($reservation->deleted_at != null)
+                                            <span class="text-red-500 font-bold">Cancelada el día {{\Carbon\Carbon::parse($reservation->updated_at)->format('d/m/Y')}}</span>
                                         @else
-                                            <span class="block text-green-500 font-bold">Activa</span>
+                                            <span class="text-green-500 font-bold">Activa</span>
                                         @endif
                                     </div>
-                                    @if ($reservation->pivot->deleted_at == null)
+                                    @if ($reservation->deleted_at == null)
                                         <div class="space-y-3 flex-row items-center">
                                             <x-edit-button>Editar</x-edit-button>
-                                            <x-delete-button wire:click='showDeleteModal({{$reservation}})'>Cancelar</x-delete-button>
+                                            <x-delete-button wire:click='showConfirmationDeleteModal({{ json_encode($reservation) }})'>Cancelar</x-delete-button>
                                         </div>
                                     @endif
                                 </div>
                             @endforeach
+                            {{ $reservations->links() }}
                         @endif
                     </div>
                 </div>

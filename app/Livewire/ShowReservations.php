@@ -3,55 +3,58 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
+use Livewire\WithPagination;
 
 class ShowReservations extends Component
 {
+    use WithPagination;
 
     public $isReservationCancelVisible = false;
     public $filter;
-    public $reservations;
 
     public function mount()
     {
         $this->filter = 'all';
-        $this->searchReservations();
     }
 
     public function render()
     {
-        return view('livewire.web_restaurant.show-reservations');
+        $reservations = $this->searchReservations();
+        return view('livewire.web_restaurant.show-reservations', ['reservations' => $reservations]);
     }
 
-    public function showDeleteModal($reservation)
+    public function showConfirmationDeleteModal($reservation)
     {
         $this->searchReservations();
-        $this->dispatch('showDeleteModal', reservation: $reservation);
+        $this->dispatch('showConfirmationDeleteModal', reservation: $reservation);
     }
 
     #[On('refresh')]
     public function searchReservations()
     {
+        $user_id = Auth::user()->id;
+
         switch ($this->filter) {
             case 'all':
-                $this->reservations = User::find(auth()->user()->id)
-                    ->tables()->get();
-                break;
+                return DB::table('table_user')
+                    ->where('user_id', $user_id)
+                    ->paginate(5);
 
             case 'active':
-                $this->reservations = User::find(auth()->user()->id)
-                    ->tables()
-                    ->whereNull('table_user.deleted_at')
-                    ->get();
-                break;
+                return DB::table('table_user')
+                    ->where('user_id', $user_id)
+                    ->where('deleted_at', null)
+                    ->paginate(5);
 
             case 'cancelled':
-                $this->reservations = User::find(auth()->user()->id)
-                    ->tables()
-                    ->whereNotNull('table_user.deleted_at')
-                    ->get();
-                break;
+                return DB::table('table_user')
+                    ->where('user_id', $user_id)
+                    ->where('deleted_at', '!=', null)
+                    ->paginate(5);
 
             default:
                 # code...
