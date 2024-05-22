@@ -31,7 +31,9 @@
 
             <!-- Page Content -->
             <main>
-                @livewire('showreservationtablemodals')
+                <livewire:showloginmodal />
+                <livewire:showregistermodal />
+                <livewire:showreservationtablemodals />
                 {{ $slot }}
             </main>
         </div>

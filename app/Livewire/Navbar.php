@@ -25,6 +25,16 @@ class Navbar extends Component
         $this->dispatch('showSidebar');
     }
 
+    public function showLoginModal()
+    {
+        $this->dispatch('openLoginModal');
+    }
+
+    public function showRegisterModal()
+    {
+        $this->dispatch('openRegisterModal');
+    }
+
     public function logout(Logout $logout): void
     {
         $logout();

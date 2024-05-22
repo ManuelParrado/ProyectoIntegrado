@@ -1,0 +1,3 @@
+<div>
+    Vista admin
+</div>

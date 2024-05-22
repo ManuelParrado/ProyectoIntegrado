@@ -1,5 +1,5 @@
 <div>
-    <div class="fixed inset-0 z-40 bg-gray-900 bg-opacity-60 shadow-xl flex justify-center items-center">
+    <div class="{{$isRegisterModalVisible ? 'animate-fadeIn' : 'hidden'}} fixed inset-0 z-40 bg-gray-900 bg-opacity-60 shadow-xl flex justify-center items-center">
         <div tabindex="-1" class="w-full md:w-4/5 p-4 overflow-x-hidden overflow-y-auto max-w-lg">
             <div class="relative bg-white rounded-lg shadow">
                 <!-- Modal header -->
@@ -17,16 +17,16 @@
                 <!-- Modal body -->
                 <form wire:submit="register">
                     <!-- Email Address -->
-                    <div class="p-6 space-y-3">
+                    <div class="px-6 py-3 space-y-3">
 
                         <!-- Email Address -->
-                        <div class="mt-4">
+                        <div>
                             <x-text-input :value="__('Email')" wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
                         <div>
-                            <x-text-input :value="__('Nombre')" wire:model="name" id="email" type="email" name="email" required autofocus autocomplete="username" />
+                            <x-text-input :value="__('Nombre')" wire:model="name" id="name" type="text" name="name" required autofocus autocomplete="username" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
@@ -37,12 +37,12 @@
 
                         <div>
                             <x-text-input :value="__('Número de teléfono')" wire:model="telephone_number" id="telephone_number" type="tel" name="telephone_number" required autofocus autocomplete="tel" />
-                            <x-input-error :messages="$errors->get('')" class="mt-2" />
+                            <x-input-error :messages="$errors->get('telephone_number')" class="mt-2" />
                         </div>
 
                         <!-- Password -->
                         <div class="mt-4">
-                            <x-text-input :value="__('Contraseña')" wire:model="form.password" id="password"
+                            <x-text-input :value="__('Contraseña')" wire:model="password" id="password" class="block mt-1 w-full"
                                             type="password"
                                             name="password"
                                             required autocomplete="new-password" />
@@ -52,7 +52,7 @@
 
                         <!-- Confirm Password -->
                         <div class="mt-4">
-                            <x-text-input :value="__('Repite la Contraseña')" wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
+                            <x-text-input :value="__('Confirmar contraseña')" wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
                                             type="password"
                                             name="password_confirmation" required autocomplete="new-password" />
 

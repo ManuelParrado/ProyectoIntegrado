@@ -11,7 +11,7 @@ class ReservationsController extends Controller
      */
     public function index()
     {
-        return view('web_restaurant.reservations');
+        //
     }
 
     /**

@@ -27,7 +27,7 @@
                         </ul>
                     </div>
                 </aside>
-                <div class="w-full flex justify-center items-center">
+                <div class="w-full h-auto flex justify-center items-center">
                     <div class="w-2/3 p-4 h-full space-y-4 flex-row text-lg">
                         @if($reservations->count() == 0)
                             <p class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">No se encuentran reservas</p>
