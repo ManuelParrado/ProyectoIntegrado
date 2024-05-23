@@ -17,6 +17,11 @@
 
             <!-- Enlaces a la derecha del logo -->
             <div class="flex items-center justify-end space-x-6">
+                @if (Auth::check() && Auth::user()->role === 'admin')
+                    <x-nav-link :href="route('admin.index')" :active="request()->routeIs('admin.index')">
+                        Administrar
+                    </x-nav-link>
+                @endif
                 <x-dropdown align="bottom" width="48">
                     <x-slot name="trigger">
                         <div class="inline-flex items-center px-1 pt-1 border-b-2 border-transparent font-medium leading-5 text-gray-400 hover:text-gray-200 hover:border-gray-300 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out cursor-pointer">

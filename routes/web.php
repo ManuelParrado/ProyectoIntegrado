@@ -18,13 +18,9 @@ Route::view('profile', 'profile')
     ->middleware(['auth'])
     ->name('profile');
 
-Route::view('web_restaurant.admin-dashboard', 'administration')
-    ->middleware(['auth', 'admin', 'verified'])
-    ->name('admin-dashboard');
-
 require __DIR__ . '/auth.php';
 
-Route::resource('user', UserController::class)->middleware(['auth', 'admin']);
+Route::resource('admin', UserController::class)->middleware(['auth', 'admin']);
 Route::resource('order', OrderController::class)->middleware(['auth']);
 Route::resource('dish', DishController::class);
 Route::resource('table', TableController::class)->middleware(['auth']);
