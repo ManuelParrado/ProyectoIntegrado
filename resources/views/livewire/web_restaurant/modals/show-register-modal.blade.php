@@ -21,28 +21,28 @@
 
                         <!-- Email Address -->
                         <div>
-                            <x-text-input :value="__('Email')" wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
+                            <x-text-input :label="__('Email')" wire:model="email" id="email" class="block mt-1 w-full" type="email" name="email" required autocomplete="username" />
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
 
                         <div>
-                            <x-text-input :value="__('Nombre')" wire:model="name" id="name" type="text" name="name" required autofocus autocomplete="username" />
+                            <x-text-input :label="__('Nombre')" wire:model="name" id="name" type="text" name="name" required autofocus autocomplete="username" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
                         <div>
-                            <x-text-input :value="__('Apellidos')" wire:model="last_name" id="last_name" type="text" name="last_name" required autofocus autocomplete="username" />
+                            <x-text-input :label="__('Apellidos')" wire:model="last_name" id="last_name" type="text" name="last_name" required autofocus autocomplete="username" />
                             <x-input-error :messages="$errors->get('name')" class="mt-2" />
                         </div>
 
                         <div>
-                            <x-text-input :value="__('Número de teléfono')" wire:model="telephone_number" id="telephone_number" type="tel" name="telephone_number" required autofocus autocomplete="tel" />
+                            <x-text-input :label="__('Número de teléfono')" wire:model="telephone_number" id="telephone_number" type="tel" name="telephone_number" required autofocus autocomplete="tel" />
                             <x-input-error :messages="$errors->get('telephone_number')" class="mt-2" />
                         </div>
 
                         <!-- Password -->
                         <div class="mt-4">
-                            <x-text-input :value="__('Contraseña')" wire:model="password" id="password" class="block mt-1 w-full"
+                            <x-text-input :label="__('Contraseña')" wire:model="password" id="password" class="block mt-1 w-full"
                                             type="password"
                                             name="password"
                                             required autocomplete="new-password" />
@@ -52,7 +52,7 @@
 
                         <!-- Confirm Password -->
                         <div class="mt-4">
-                            <x-text-input :value="__('Confirmar contraseña')" wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
+                            <x-text-input :label="__('Confirmar contraseña')" wire:model="password_confirmation" id="password_confirmation" class="block mt-1 w-full"
                                             type="password"
                                             name="password_confirmation" required autocomplete="new-password" />
 

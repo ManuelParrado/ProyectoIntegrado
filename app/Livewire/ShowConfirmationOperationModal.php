@@ -30,5 +30,6 @@ class ShowConfirmationOperationModal extends Component
     public function confirmOperation()
     {
         $this->dispatch('confirmOperation');
+        $this->hideOperationModal();
     }
 }

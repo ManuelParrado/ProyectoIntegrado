@@ -22,13 +22,13 @@
                         <!-- Email Address -->
                         <div class="p-6">
                             <div>
-                                <x-text-input :value="__('Email')" wire:model="form.email" id="email" type="email" name="email" required autofocus autocomplete="username" />
+                                <x-text-input :label="__('Email')" wire:model="form.email" id="email" type="email" name="email" required autofocus autocomplete="username" />
                                 <x-input-error :messages="$errors->get('form.email')" class="mt-2" />
                             </div>
 
                             <!-- Password -->
                             <div class="mt-4">
-                                <x-text-input :value="__('Contraseña')" wire:model="form.password" id="password"
+                                <x-text-input :label="__('Contraseña')" wire:model="form.password" id="password"
                                                 type="password"
                                                 name="password"
                                                 required autocomplete="current-password" />

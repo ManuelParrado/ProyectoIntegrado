@@ -53,6 +53,11 @@
         border-image-slice: 1;
     }
 
+    .select_label {
+        font-size: 17px;
+        color: #9b9b9b;
+    }
+
     .form__field:focus ~ .form__label {
         position: absolute;
         top: 0;
@@ -543,3 +548,38 @@
     transform: scale(0.8);
 }
 
+
+.cross {
+    color: rgba(#000000);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.397);
+    background: rgba(255, 255, 255, 0.068);
+    overflow: hidden;
+    font-size: 0.9rem;
+    font-weight: 600;
+    gap: 8px;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+.cross:hover {
+    border-color: rgba(173, 173, 173, 0.623);
+    background: linear-gradient(
+    to bottom,
+    rgba(145, 145, 145, 0.144),
+    rgba(158, 158, 158, 0.247),
+    rgba(255, 255, 255, 0.39)
+    );
+    box-shadow: 0 6px rgba(98, 98, 98, 0.623);
+    transform: translateY(-6px);
+}
+
+.cross:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}

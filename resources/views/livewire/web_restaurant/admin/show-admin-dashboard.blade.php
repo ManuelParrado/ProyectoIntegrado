@@ -10,4 +10,5 @@
     </div>
 
     <livewire:showconfirmationoperationmodal />
+
 </div>
