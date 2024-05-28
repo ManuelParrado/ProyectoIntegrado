@@ -11,7 +11,7 @@ use Livewire\WithPagination;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, SoftDeletes, WithPagination;
+    use HasFactory, Notifiable, WithPagination;
 
     /**
      * The attributes that are mass assignable.

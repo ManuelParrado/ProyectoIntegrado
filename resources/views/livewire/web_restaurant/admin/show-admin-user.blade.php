@@ -14,14 +14,6 @@
                                             <span>Todos los usuarios</span>
                                         </label>
                                         <label>
-                                            <input type="radio" wire:click='searchUsers' wire:model='filter' value='not_deleted' name="radio" >
-                                            <span>No eliminados</span>
-                                        </label>
-                                        <label>
-                                            <input type="radio" wire:click='searchUsers' wire:model='filter' value='deleted' name="radio">
-                                            <span>Eliminados</span>
-                                        </label>
-                                        <label>
                                             <input type="radio" wire:click='searchUsers' wire:model='filter' value='admin' name="radio">
                                             <span>Administradores</span>
                                         </label>

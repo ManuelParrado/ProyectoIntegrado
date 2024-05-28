@@ -23,7 +23,6 @@ class ShowAdminUser extends Component
     public function mount()
     {
         $this->filter = 'all';
-        $this->isUserAdministration = true;
     }
 
     public function render()
@@ -43,8 +42,9 @@ class ShowAdminUser extends Component
     {
         $user = User::find($this->userSelected);
 
+        $user->delete();
+
         if ($user) {
-            $user->delete();
             $this->confirmationMessage = 'Usuario eliminado correctamente';
             $this->confirmationColor = 'green';
         } else {
@@ -68,17 +68,13 @@ class ShowAdminUser extends Component
                     ->orWhere('name', 'like', '%' . $this->search . '%')
                     ->orWhere('last_name', 'like', '%' . $this->search . '%')
                     ->orWhere('telephone_number', 'like', '%' . $this->search . '%')
-                    ->orWhere('role', 'like', '%' . $this->search . '%');
+                    ->orWhere('role', 'like', '%' . $this->search . '%')
+                    ->orWhere('created_at', 'like', '%' . $this->search . '%')
+                    ->orWhere('updated_at', 'like', '%' . $this->search . '%');
             });
         }
 
         switch ($this->filter) {
-            case 'not_deleted':
-                $query->whereNull('deleted_at');
-                break;
-            case 'deleted':
-                $query->whereNotNull('deleted_at');
-                break;
             case 'admin':
                 $query->where('role', 'admin');
                 break;
