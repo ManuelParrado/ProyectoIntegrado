@@ -24,15 +24,50 @@
                 </aside>
                 <div class="w-full h-auto flex justify-center items-center">
                     <div class="w-full p-4 h-full space-y-4 flex-row text-lg">
-                        @if($reservations->count() == 0)
-                        <p class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">Ninguna reserva para el día {{$selected_date}}</p>
+                        @if($groupedReservations->isEmpty())
+                            <p class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
+                                Ninguna reserva para el día {{$selected_date}}
+                            </p>
                         @else
-                            @foreach ($reservations as $reservation)
-                            <div class="bg-gray-50 py-4 px-6 w-auto shadow-md rounded-md flex justify-between items-center">
-                                {{$reservation->timeslot}}
-                            </div>
+                            @foreach($groupedReservations as $timeslot => $reservations)
+                                @php $totalCapacityByTimeslot = 0; @endphp <!-- Inicializa la variable antes del bucle -->
+                                <div class="space-y-2">
+                                    <button type="button" class="bg-gray-50 py-4 px-6 w-full shadow-md rounded-md flex justify-between items-center cursor-pointer"
+                                        aria-controls="dropdown-{{ $selected_date }}-{{ str_replace(' ', '', $timeslot) }}"
+                                        data-collapse-toggle="dropdown-{{ $selected_date }}-{{ str_replace(' ', '', $timeslot) }}">
+                                        <h2>{{ $timeslot }} - Total de Personas: {{$totalCapacityByTimeslot}}</h2>
+                                        <div>
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m19 9-7 7-7-7"/>
+                                            </svg>
+                                        </div>
+                                    </button>
+                                    <ul id="dropdown-{{ $selected_date }}-{{ str_replace(' ', '', $timeslot) }}" class="hidden">
+                                        @foreach($reservations as $reservation)
+                                            @php $totalCapacityByTimeslot += $reservation->table_capacity @endphp
+                                            <div class="bg-gray-50 py-4 px-6 ml-6 my-2 w-auto shadow-md flex-row items-center">
+                                                <li>
+                                                    Nombre: {{ $reservation->user_name }} {{ $reservation->user_last_name }}
+                                                </li>
+                                                <li>
+                                                    Email: {{ $reservation->user_email }}
+                                                </li>
+                                                <li>
+                                                    Teléfono de contacto: {{ $reservation->user_telephone }}
+                                                </li>
+                                                <li>
+                                                    Número de mesa {{ $reservation->table_number }}
+                                                </li>
+                                                <li>
+                                                    Capacidad {{ $reservation->table_capacity }}
+                                                </li>
+                                            </div>
+                                        @endforeach
+                                    </ul>
+                                </div>
                             @endforeach
                         @endif
+
                     </div>
                 </div>
             </div>
