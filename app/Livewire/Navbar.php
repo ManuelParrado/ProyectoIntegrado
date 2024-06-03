@@ -15,9 +15,9 @@ class Navbar extends Component
         return view('livewire.layout.navigation');
     }
 
-    public function showModals()
+    public function showReservationModals()
     {
-        $this->dispatch('openModals');
+        $this->dispatch('openReservationModals');
     }
 
     public function showSidebar()

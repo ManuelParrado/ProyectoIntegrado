@@ -14,8 +14,13 @@ class ShowReservationTableModals extends Component
     public $isSearchModalVisible = false;
     public $isReservationModalVisible = false;
     public $isConfirmationModalVisible = false;
+
+    public $isCreateMode = true;
+    public $modalTitle;
+
     public $tables = [];
     public $id_tables_reserved = [];
+    public $reservationId;
     public $reservationTimeslot = '20:00 - 21:00';
     public $reservationDate = null;
     public $comprobationSearchErrorMessage = '';
@@ -58,21 +63,55 @@ class ShowReservationTableModals extends Component
 
     public function doReservation()
     {
-        DB::table('table_user')->insert([
-            'table_id' => $this->tableNumber,
-            'user_id' => Auth::user()->id,
-            'date' => $this->reservationDate,
-            'timeslot' => $this->reservationTimeslot,
-            'created_at' => now(),
-            'updated_at' => now()
-        ]);
+        $message = '';
 
-        redirect('dashboard');
+        if ($this->isCreateMode) {
+            // Crear nueva reserva
+            $rows = DB::table('table_user')->insert([
+                'table_id' => $this->tableNumber,
+                'user_id' => Auth::user()->id,
+                'date' => $this->reservationDate,
+                'timeslot' => $this->reservationTimeslot,
+                'created_at' => now(),
+                'updated_at' => now()
+            ]);
+            $message = 'Reserva realizada correctamente';
+        } else {
+            // Actualizar reserva existente
+            $rows = DB::table('table_user')->where('id', $this->reservationId)->update([
+                'date' => $this->reservationDate,
+                'timeslot' => $this->reservationTimeslot,
+                'table_id' => $this->tableNumber,
+                'updated_at' => now()
+            ]);
+            $message = 'Reserva actualizada correctamente';
+        }
+
+        if ($rows) {
+            $this->dispatch('openSuccessNotification', message: $message);
+        } else {
+            $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error');
+        }
+
+        $this->dispatch('refreshReservationList');
+        $this->closeAllModals();
     }
 
-    #[On('openModals')]
-    public function showSearchModal()
+    #[On('openReservationModals')]
+    public function showSearchModal($reservationId = null)
     {
+        if ($reservationId) {
+            $reservation = DB::table('table_user')->where('id', '=', $reservationId)->first();
+            $this->reservationId = $reservationId;
+            $this->reservationDate = $reservation->date;
+            $this->reservationTimeslot = $reservation->timeslot;
+            $this->tableNumber = $reservation->table_id;
+            $this->isCreateMode = false;
+            $this->modalTitle = 'Editar reserva';
+        } else {
+            $this->isCreateMode = true;
+            $this->modalTitle = 'Hacer reserva';
+        }
         $this->isSearchModalVisible = true;
     }
 
@@ -118,6 +157,7 @@ class ShowReservationTableModals extends Component
         $this->isSearchModalVisible = false;
         $this->isReservationModalVisible = false;
         $this->isConfirmationModalVisible = false;
+        $this->reservationId = '';
         $this->tables = [];
         $this->id_tables_reserved = [];
         $this->reservationTimeslot = '20:00 - 21:00';

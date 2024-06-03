@@ -46,21 +46,21 @@
                             @foreach ($users as $user)
                                 <div class="bg-gray-50 py-4 px-6 w-auto shadow-md rounded-md flex justify-between items-center">
                                     <div class="inline-grid w-1/2">
-                                        <p class="pb-3"><span class="font-bold">Email:</span> {{ $user->email }}</p>
-                                        <p class="pb-3"><span class="font-bold">Nombre:</span> {{ $user->name }}</p>
-                                        <p class="pb-3"><span class="font-bold">Apellidos:</span> {{ $user->last_name }}</p>
-                                        <p class="pb-3"><span class="font-bold">Número de teléfono:</span> {{ $user->telephone_number }}</p>
-                                        <p class="pb-3"><span class="font-bold">Permisos:</span>
+                                        <p class="pb-3"><span class="font-semibold">Email:</span> {{ $user->email }}</p>
+                                        <p class="pb-3"><span class="font-semibold">Nombre:</span> {{ $user->name }}</p>
+                                        <p class="pb-3"><span class="font-semibold">Apellidos:</span> {{ $user->last_name }}</p>
+                                        <p class="pb-3"><span class="font-semibold">Número de teléfono:</span> {{ $user->telephone_number }}</p>
+                                        <p class="pb-3"><span class="font-semibold">Permisos:</span>
                                             @if($user->role === 'admin')
                                                 Administrador
                                             @else
                                                 Usuario
                                             @endif
                                         </p>
-                                        <p class="pb-3"><span class="font-bold">Registro:</span> {{ $user->created_at->format('d/m/Y H:i:s') }}</p>
-                                        <p class="pb-3"><span class="font-bold">Última edición:</span> {{ $user->updated_at->format('d/m/Y H:i:s') }}</p>
+                                        <p class="pb-3"><span class="font-semibold">Registro:</span> {{ $user->created_at->format('d/m/Y H:i:s') }}</p>
+                                        <p class="pb-3"><span class="font-semibold">Última edición:</span> {{ $user->updated_at->format('d/m/Y H:i:s') }}</p>
                                         <p class="pb-3">
-                                            <span class="font-bold">Eliminado:</span>
+                                            <span class="font-semibold">Eliminado:</span>
                                             @if ($user->deleted_at != null)
                                                 Sí {{ $user->last_name }}
                                             @else

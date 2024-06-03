@@ -34,7 +34,7 @@
 
                     <x-slot name="content">
                         <button class="w-full text-start">
-                            <x-dropdown-link wire:click='showModals'>
+                            <x-dropdown-link wire:click='showReservationModals'>
                                 {{ __('Reservar mesa') }}
                             </x-dropdown-link>
                         </button>

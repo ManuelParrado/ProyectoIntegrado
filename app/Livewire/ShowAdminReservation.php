@@ -25,10 +25,11 @@ class ShowAdminReservation extends Component
 
     public function mount()
     {
-        $this->searchReservations();
         $this->filter = 'all';
         $this->totalCapacity = 0;
+        //$this->selected_date = '2024-05-27';
         $this->selected_date = now()->format('Y-m-d');
+        $this->searchReservations();
         $this->isReservationAdministration = true;
     }
 
@@ -39,16 +40,12 @@ class ShowAdminReservation extends Component
         ]);
     }
 
-    public function updatedFilter()
-    {
-        $this->searchReservations(); // Actualiza reservas cuando el filtro cambia.
-    }
-
     public function updatedSelectedDate()
     {
         $this->searchReservations(); // Actualiza reservas cuando la fecha seleccionada cambia.
     }
 
+    #[On('refreshReservationList')]
     public function searchReservations()
     {
         $query = DB::table('table_user')
@@ -86,11 +83,15 @@ class ShowAdminReservation extends Component
         $this->totalCapacity = $reservations->sum('table_capacity');
     }
 
-
-
     public function setFilter($filter)
     {
         $this->filter = $filter;
+        $this->searchReservations();
+    }
+
+    public function showSearchReservationModal($reservationId)
+    {
+        $this->dispatch('openReservationModals', reservationId: $reservationId);
     }
 
     #[On('showReservationAdministration')]

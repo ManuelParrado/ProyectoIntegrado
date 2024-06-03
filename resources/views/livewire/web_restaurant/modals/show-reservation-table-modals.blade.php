@@ -5,7 +5,7 @@
                 <!-- Modal header -->
                 <div class="flex items-center justify-center p-4 md:p-5 border-b rounded-t-md bg-black">
                     <h3 class="text-xl font-medium text-gray-200">
-                        Horario de cena
+                        {{$modalTitle}}
                     </h3>
                     <button wire:click="closeAllModals" type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center">
                         <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -97,7 +97,16 @@
                         <svg class="mx-auto mb-4 text-red-500 w-12 h-12" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 20 20">
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                         </svg>
-                        <h3 class="mb-5 text-lg font-normal text-gray-500">Va a hacer una reserva de la mesa número {{$tableNumber}} para {{$tableCapacity}} personas el día {{\Illuminate\Support\Carbon::parse($reservationDate)->format('d/m/Y')}} de {{$reservationTimeslot}} horas</h3>
+                        <h3 class="mb-5 text-lg font-normal text-gray-500">
+                            @if ($isCreateMode)
+                                Va a hacer una reserva de la mesa número {{$tableNumber}}
+                                para {{$tableCapacity}} personas el día
+                                {{\Illuminate\Support\Carbon::parse($reservationDate)->format('d/m/Y')}}
+                                de {{$reservationTimeslot}} horas
+                            @else
+                                ¿Está seguro de que quiere editar su reserva?
+                            @endif
+                        </h3>
                         <div class="inline-flex justify-center">
                             <x-confirm-button wire:click='doReservation'>Confirmar</x-confirm-button>
                             <x-decline-button wire:click='hideConfirmationModal'>Volver</x-decline-button>

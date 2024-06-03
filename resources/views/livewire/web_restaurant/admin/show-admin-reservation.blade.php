@@ -25,7 +25,6 @@
                                             <input type="radio" wire:click='setFilter("night")' value="night" name="radio">
                                             <span>Horario de noche</span>
                                         </label>
-                                        {{$filter}}
                                     </form>
                                 </div>
                             </li>
@@ -68,22 +67,34 @@
                                     <ul id="dropdown-{{ $selected_date }}-{{ str_replace(' ', '', $timeslot) }}" class="hidden">
                                         @foreach($reservations as $reservation)
                                             @php $totalCapacityByTimeslot += $reservation->table_capacity @endphp
-                                            <div class="bg-gray-50 py-4 px-6 ml-6 my-2 w-auto shadow-md flex-row items-center">
-                                                <li>
-                                                    Nombre: {{ $reservation->user_name }} {{ $reservation->user_last_name }}
-                                                </li>
-                                                <li>
-                                                    Email: {{ $reservation->user_email }}
-                                                </li>
-                                                <li>
-                                                    Teléfono de contacto: {{ $reservation->user_telephone }}
-                                                </li>
-                                                <li>
-                                                    Número de mesa {{ $reservation->table_number }}
-                                                </li>
-                                                <li>
-                                                    Capacidad {{ $reservation->table_capacity }}
-                                                </li>
+                                            <div class="bg-gray-50 py-4 px-6 ml-6 my-2 w-auto shadow-md flex justify-between">
+                                                <div class="flex-row items-center">
+                                                    <li>
+                                                        <span class="font-semibold">Nombre:</span> {{ $reservation->user_name }} {{ $reservation->user_last_name }}
+                                                    </li>
+                                                    <li>
+                                                        <span class="font-semibold">Email:</span> {{ $reservation->user_email }}
+                                                    </li>
+                                                    <li>
+                                                        <span class="font-semibold">Teléfono de contacto:</span> {{ $reservation->user_telephone }}
+                                                    </li>
+                                                    <li>
+                                                        <span class="font-semibold">Número de mesa:</span> {{ $reservation->table_number }}
+                                                    </li>
+                                                    <li>
+                                                        <span class="font-semibold">Capacidad:</span> {{ $reservation->table_capacity }}
+                                                    </li>
+                                                    <li>
+                                                        <span class="font-semibold">Fecha de la reserva:</span> {{ \Carbon\Carbon::parse($reservation->created_at)->format('d/m/Y H:i:s') }}
+                                                    </li>
+                                                    <li>
+                                                        <span class="font-semibold">Última modificación:</span> {{ \Carbon\Carbon::parse($reservation->updated_at)->format('d/m/Y H:i:s')  }}
+                                                    </li>
+                                                </div>
+                                                <div class="flex-row content-center space-y-3 p-3">
+                                                    <x-edit-button wire:click='showSearchReservationModal({{ $reservation->id }})'>Editar</x-edit-button>
+                                                    <x-delete-button >Eliminar</x-delete-button>
+                                                </div>
                                             </div>
                                         @endforeach
                                     </ul>

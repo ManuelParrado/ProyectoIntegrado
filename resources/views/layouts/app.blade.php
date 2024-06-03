@@ -31,6 +31,8 @@
 
             <!-- Page Content -->
             <main>
+                <livewire:showsuccessnotification />
+                <livewire:showerrornotification />
                 <livewire:showloginmodal />
                 <livewire:showregistermodal />
                 <livewire:showreservationtablemodals />
