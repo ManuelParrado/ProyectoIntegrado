@@ -16,6 +16,7 @@ class ShowAdminReservation extends Component
     public $isReservationAdministration = false;
     public $selected_date;
     public $filter;
+    public $statusFilter;
 
 
     public $totalCapacityByTimeslot = 0;
@@ -26,11 +27,11 @@ class ShowAdminReservation extends Component
     public function mount()
     {
         $this->filter = 'all';
+        $this->statusFilter = 'all';
         $this->totalCapacity = 0;
         //$this->selected_date = '2024-05-27';
         $this->selected_date = now()->format('Y-m-d');
         $this->searchReservations();
-        $this->isReservationAdministration = true;
     }
 
     public function render()
@@ -45,7 +46,7 @@ class ShowAdminReservation extends Component
         $this->searchReservations(); // Actualiza reservas cuando la fecha seleccionada cambia.
     }
 
-    #[On('refreshReservationList')]
+    #[On('refresh')]
     public function searchReservations()
     {
         $query = DB::table('table_user')
@@ -63,6 +64,12 @@ class ShowAdminReservation extends Component
             )
             ->where('table_user.date', $this->selected_date);
 
+        if ($this->statusFilter === 'active') {
+            $query->whereNull('table_user.deleted_at');
+        } elseif ($this->statusFilter === 'cancelled') {
+            $query->whereNotNull('table_user.deleted_at');
+        }
+
         // Aplica el filtro de timeslot según la selección del usuario
         if ($this->filter === 'day') {
             $query->whereIn('table_user.timeslot', [
@@ -79,13 +86,24 @@ class ShowAdminReservation extends Component
         // Agrupar los resultados por 'timeslot'
         $this->groupedReservations = $reservations->groupBy('timeslot');
 
+        $this->totalCapacity = 0;
+
         // Calcular la capacidad total
-        $this->totalCapacity = $reservations->sum('table_capacity');
+        foreach ($reservations as $reservation) {
+            if ($reservation->deleted_at == null)
+                $this->totalCapacity += $reservation->table_capacity;
+        }
     }
 
     public function setFilter($filter)
     {
         $this->filter = $filter;
+        $this->searchReservations();
+    }
+
+    public function setStatusFilter($statusFilter)
+    {
+        $this->statusFilter = $statusFilter;
         $this->searchReservations();
     }
 

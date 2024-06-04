@@ -1,12 +1,12 @@
 <div class="{{$isReservationAdministration ? '' : 'hidden'}}">
     <div class="py-2">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 text-lg">
+        <div class="max-w-screen-2xl mx-auto sm:px-6 lg:px-8 text-lg">
             <h1 class="text-3xl font-bold text-gray-800 p-2">Administracion de reservas</h1>
             <div class="flex overflow-hidden shadow-md rounded-md bg-gray-200 ">
                 <aside id="separator-sidebar" class="bg-gray-50 p-4 w-1/3" aria-label="Sidebar">
                     <div class="h-full overflow-y-auto">
-                        <ul class="space-y-3 font-medium">
-                            <li>
+                        <ul class="space-y-2 font-medium">
+                            <li class="mb-4">
                                 <label class='block' for="calendar1">Seleccione un día: </label>
                                 <input type="date" wire:model.live='selected_date' id="calendar1" class="bg-gray-100 rounded-md focus:ring-gray-300">
                             </li>
@@ -24,6 +24,24 @@
                                         <label>
                                             <input type="radio" wire:click='setFilter("night")' value="night" name="radio">
                                             <span>Horario de noche</span>
+                                        </label>
+                                    </form>
+                                </div>
+                            </li>
+                            <li class="border-t border-black pt-3">
+                                <div class="container">
+                                    <form>
+                                        <label>
+                                            <input type="radio" wire:click='setStatusFilter("all")' name="radio2" checked>
+                                            <span>Todas las reservas</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" wire:click='setStatusFilter("active")'' name="radio2">
+                                            <span>Reservas activas</span>
+                                        </label>
+                                        <label>
+                                            <input type="radio" wire:click='setStatusFilter("cancelled")' name="radio2">
+                                            <span>Reservas canceladas</span>
                                         </label>
                                     </form>
                                 </div>
@@ -48,8 +66,8 @@
                                 @php $totalCapacityByTimeslot = 0; @endphp
                                 @foreach($reservations as $reservation)
                                     @php
+                                    if ($reservation->deleted_at == null)
                                         $totalCapacityByTimeslot += $reservation->table_capacity;
-                                        $totalCapacity += $totalCapacityByTimeslot;
                                     @endphp
                                 @endforeach
                                 <div wire:loading.remove class="space-y-2">
@@ -66,7 +84,6 @@
                                     </button>
                                     <ul id="dropdown-{{ $selected_date }}-{{ str_replace(' ', '', $timeslot) }}" class="hidden">
                                         @foreach($reservations as $reservation)
-                                            @php $totalCapacityByTimeslot += $reservation->table_capacity @endphp
                                             <div class="bg-gray-50 py-4 px-6 ml-6 my-2 w-auto shadow-md flex justify-between">
                                                 <div class="flex-row items-center">
                                                     <li>
@@ -90,11 +107,22 @@
                                                     <li>
                                                         <span class="font-semibold">Última modificación:</span> {{ \Carbon\Carbon::parse($reservation->updated_at)->format('d/m/Y H:i:s')  }}
                                                     </li>
+                                                    @if ($reservation->deleted_at != null)
+                                                        <li>
+                                                            <span class="text-red-500 font-bold">Cancelada el día {{\Carbon\Carbon::parse($reservation->updated_at)->format('d/m/Y')}}</span>
+                                                        </li>
+                                                    @else
+                                                        <li>
+                                                            <span class="text-green-500 font-bold">Activa</span>
+                                                        </li>
+                                                    @endif
                                                 </div>
-                                                <div class="flex-row content-center space-y-3 p-3">
-                                                    <x-edit-button wire:click='showSearchReservationModal({{ $reservation->id }})'>Editar</x-edit-button>
-                                                    <x-delete-button >Eliminar</x-delete-button>
-                                                </div>
+                                                @if($reservation->deleted_at == null)
+                                                    <div class="flex-row content-center space-y-3 p-3">
+                                                        <x-edit-button wire:click='showSearchReservationModal({{ $reservation->id }})'>Editar</x-edit-button>
+                                                        <x-delete-button >Cancelar</x-delete-button>
+                                                    </div>
+                                                @endif
                                             </div>
                                         @endforeach
                                     </ul>

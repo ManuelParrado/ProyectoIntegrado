@@ -47,13 +47,13 @@ class ShowReservations extends Component
             case 'active':
                 return DB::table('table_user')
                     ->where('user_id', $user_id)
-                    ->where('deleted_at', null)
+                    ->whereNull('deleted_at')
                     ->paginate(4);
 
             case 'cancelled':
                 return DB::table('table_user')
                     ->where('user_id', $user_id)
-                    ->where('deleted_at', '!=', null)
+                    ->whereNotNull('deleted_at')
                     ->paginate(4);
 
             default:

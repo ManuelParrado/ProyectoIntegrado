@@ -42,6 +42,7 @@ class ShowReservationTableModals extends Component
                 ->select('table_id')
                 ->where('date', '=', $this->reservationDate)
                 ->where('timeslot', '=', $this->reservationTimeslot)
+                ->whereNull('deleted_at')
                 ->get()
                 ->pluck('table_id');
 
@@ -93,7 +94,7 @@ class ShowReservationTableModals extends Component
             $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error');
         }
 
-        $this->dispatch('refreshReservationList');
+        $this->dispatch('refresh');
         $this->closeAllModals();
     }
 
