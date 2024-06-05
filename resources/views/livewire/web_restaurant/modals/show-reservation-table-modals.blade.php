@@ -57,16 +57,25 @@
                 </div>
                 <!-- Modal body -->
                 <div class="space-y-3 m-5 rounded-md">
-                    <div class="flex flex-wrap p-2 justify-center items-center border-2 rounded-sm bg-gray-100 border-gray-700">
+                    <!-- Contenedor de imágenes con desplazamiento vertical -->
+                    <div class="flex flex-wrap overflow-y-auto p-2 justify-center items-center border-2 rounded-sm bg-gray-100 border-gray-700" style="max-height: 300px;">
                         @foreach ($tables as $table)
                             @if (!$id_tables_reserved->contains($table->id))
-                                <img tabindex="0" wire:click="showTableInformation({{ $table->id }})" class="w-20 m-2 rounded-lg focus:bg-gray-200 focus:scale-105 shadow-md transform transition-transform bg-white hover:scale-105 hover:bg-gray-200 duration-200 tabi" src="{{ asset('storage/images/table/table-image.png') }}">
+                                <div class="relative m-2">
+                                    <img wire:click="showTableInformation({{ $table->id }})"
+                                    class="w-20 h-20 m-2 rounded-lg focus:bg-gray-200 focus:scale-105 shadow-md transform transition-transform bg-white hover:scale-105 hover:bg-gray-200 duration-200"
+                                    src="{{ asset('storage/images/table/table-image.png') }}">
+                                    <div class="absolute top-0 right-0 text-white bg-black rounded-full w-6 h-6 flex justify-center items-center text-sm" style="transform: translate(50%, -50%);">
+                                        {{ $table->capacity }}
+                                    </div>
+                                </div>
                             @else
-                                <img class="w-20 m-2 rounded-lg focus:bg-gray-200 focus:scale-105 shadow-md transform transition-transform bg-red-300" src="{{ asset('storage/images/table/table-image.png') }}">
+                                <img class="w-20 h-20 m-2 rounded-lg focus:bg-gray-200 focus:scale-105 shadow-md transform transition-transform bg-red-300" src="{{ asset('storage/images/table/table-image.png') }}">
                             @endif
                         @endforeach
                     </div>
                     <div class='text-md bg-gray-100 p-3'>
+                        <!-- Detalles de la mesa seleccionada -->
                         <p>Número de mesa: {{$tableNumber}}</p>
                         <p>Capacidad: {{$tableCapacity}}</p>
                         <p>Hora de la reserva: {{ \Illuminate\Support\Carbon::parse($reservationDate)->format('d/m/Y') }}</p>

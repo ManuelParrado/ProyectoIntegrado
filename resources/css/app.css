@@ -584,3 +584,108 @@
     box-shadow: none;
 }
 
+
+  /***************/
+/* add button styles */
+/***************/
+
+#add-button {
+    width: 150px;
+    height: 50px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    background: green;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px 3px rgba(0,0,0,0.15);
+    background: #414181;
+}
+
+#add-button, delete-button span {
+    transition: 200ms;
+}
+
+#add-button .text {
+    transform: translateX(35px);
+    color: white;
+    font-weight: 500;
+}
+
+#add-button .icon {
+    color: white;
+    position: absolute;
+    border-left: 1px solid #141514;
+    transform: translateX(110px);
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#add-button svg {
+    width: 22px;
+    fill: #eee;
+}
+
+#add-button:hover {
+    background: #505084;
+}
+
+#add-button:hover .text {
+    color: transparent;
+}
+
+#add-button:hover .icon {
+    width: 150px;
+    border-left: none;
+    transform: translateX(0);
+}
+
+#add-button:focus {
+    outline: none;
+}
+
+#add-button:active .icon svg {
+    transform: scale(0.8);
+}
+
+
+.cross {
+    color: rgba(#000000);
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.397);
+    background: rgba(255, 255, 255, 0.068);
+    overflow: hidden;
+    font-size: 0.9rem;
+    font-weight: 600;
+    gap: 8px;
+    border-radius: 5px;
+    margin: 0 5px;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+.cross:hover {
+    border-color: rgba(173, 173, 173, 0.623);
+    background: linear-gradient(
+    to bottom,
+    rgba(145, 145, 145, 0.144),
+    rgba(158, 158, 158, 0.247),
+    rgba(255, 255, 255, 0.39)
+    );
+    box-shadow: 0 6px rgba(98, 98, 98, 0.623);
+    transform: translateY(-6px);
+}
+
+.cross:active {
+    transform: translateY(2px);
+    box-shadow: none;
+}
+
+
+

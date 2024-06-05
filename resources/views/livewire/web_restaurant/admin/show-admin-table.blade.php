@@ -9,6 +9,9 @@
                             <li class="mb-4">
                                 <x-text-input wire:model.live='search' for="search" :label="__('Buscar mesa')" />
                             </li>
+                            <li class="flex justify-center">
+                                <x-add-button wire:click='openCreateTableModal'>Añadir</x-add-button>
+                            </li>
                         </ul>
                     </div>
                 </aside>
@@ -17,25 +20,32 @@
                         <div wire:loading class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
                             Cargando ...
                         </div>
-                        @foreach ($tables as $table)
-                        <div class="bg-gray-50 py-4 px-6 w-auto shadow-md rounded-md flex justify-between items-center">
-                            <div class="inline-grid w-1/2">
-                                <p class="pb-3"><span class="font-semibold">Número de mesa:</span> {{ $table->number }}</p>
-                                <p class="pb-3"><span class="font-semibold">Capacidad:</span> {{ $table->capacity }}</p>
-                                <p class="pb-3"><span class="font-semibold">Fecha de creación:</span> {{ \Carbon\Carbon::parse($table->created_at)->format('d/m/Y H:i:s') }}</p>
-                                <p class="pb-3"><span class="font-semibold">Última modificación:</span> {{ \Carbon\Carbon::parse($table->created_at)->format('d/m/Y H:i:s') }}</p>
-                            </div>
-                            <div class="space-y-3 p-6 flex-row items-center">
-                                <x-edit-button wire:click='openEditTableModal({{ json_encode($table) }})' >Editar</x-edit-button>
-                                <x-delete-button>Eliminar</x-delete-button>
-                            </div>
+                        @if($tables->isEmpty())
+                        <div wire:loading.remove class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
+                            No se encuentra niguna mesa
                         </div>
-                        @endforeach
-                        {{$tables->links()}}
+                        @else
+                            @foreach ($tables as $table)
+                            <div wire:loading.remove class="bg-gray-50 py-4 px-6 w-auto shadow-md rounded-md flex justify-between items-center">
+                                <div class="inline-grid w-1/2">
+                                    <p class="pb-3"><span class="font-semibold">Número de mesa:</span> {{ $table->number }}</p>
+                                    <p class="pb-3"><span class="font-semibold">Capacidad:</span> {{ $table->capacity }}</p>
+                                    <p class="pb-3"><span class="font-semibold">Fecha de creación:</span> {{ \Carbon\Carbon::parse($table->created_at)->format('d/m/Y H:i:s') }}</p>
+                                    <p class="pb-3"><span class="font-semibold">Última modificación:</span> {{ \Carbon\Carbon::parse($table->created_at)->format('d/m/Y H:i:s') }}</p>
+                                </div>
+                                <div class="space-y-3 p-6 flex-row items-center">
+                                    <x-edit-button wire:click='openEditTableModal({{ json_encode($table) }})' >Editar</x-edit-button>
+                                    <x-delete-button wire:click='showConfirmationModal({{ $table->id }})'>Eliminar</x-delete-button>
+                                </div>
+                            </div>
+                            @endforeach
+                            {{$tables->links()}}
+                        @endif
                     </div>
                 </div>
             </div>
         </div>
     </div>
+    <livewire:showcreatetablemodal />
     <livewire:showedittablemodal />
 </div>

@@ -33,11 +33,11 @@ class ShowAdminUser extends Component
 
     public function showConfirmationModal($user_id)
     {
-        $this->dispatch('openOperationConfirmationModal', message: '¿Estas seguro de eliminar este usuario?');
+        $this->dispatch('openOperationConfirmationModal', message: '¿Estas seguro de eliminar este usuario?', type: 'user');
         $this->userSelected = $user_id;
     }
 
-    #[On('confirmOperation')]
+    #[On('confirmUserOperation')]
     public function deleteUser()
     {
         $user = User::find($this->userSelected);

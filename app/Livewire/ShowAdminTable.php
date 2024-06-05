@@ -11,8 +11,9 @@ class ShowAdminTable extends Component
 {
     use WithPagination;
 
-    public $isTableAdministration = true;
+    public $isTableAdministration = false;
     public $search;
+    public $tableSelected;
 
     public function mount()
     {
@@ -34,6 +35,32 @@ class ShowAdminTable extends Component
             ->paginate(5);
     }
 
+    public function showConfirmationModal($table_id)
+    {
+        $this->dispatch('openOperationConfirmationModal', message: '¿Estas seguro de eliminar esta mesa?', type: 'table');
+        $this->tableSelected = $table_id;
+    }
+
+    #[On('confirmTableOperation')]
+    public function deleteUser()
+    {
+        $table = Table::find($this->tableSelected);
+
+        $table->delete();
+
+        if ($table)
+            $this->dispatch('openSuccessNotification', message: 'La mesa ha sido eliminada correctamente');
+        else
+            $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error al eliminar la mesa');
+
+        $this->dispatch('refresh');
+    }
+
+    public function openCreateTableModal()
+    {
+        $this->dispatch('openCreateTableModal');
+    }
+
     public function openEditTableModal($table)
     {
         $this->dispatch('showEditTableModal', ['table' => $table]);
@@ -49,5 +76,11 @@ class ShowAdminTable extends Component
     public function hideTableAdministration()
     {
         $this->isTableAdministration = false;
+    }
+
+    #[On('refresh')]
+    public function refresh()
+    {
+        $this->searchTables();
     }
 }

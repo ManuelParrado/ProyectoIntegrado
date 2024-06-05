@@ -9,6 +9,7 @@ class ShowConfirmationOperationModal extends Component
 {
     public $isConfirmationOperationModalVisible = false;
     public $message = '';
+    public $type;
 
     public function render()
     {
@@ -16,9 +17,10 @@ class ShowConfirmationOperationModal extends Component
     }
 
     #[On('openOperationConfirmationModal')]
-    public function showConfirmationOperationModal($message)
+    public function showConfirmationOperationModal($message, $type = '')
     {
         $this->message = $message;
+        $this->type = $type;
         $this->isConfirmationOperationModalVisible = true;
     }
 
@@ -29,7 +31,14 @@ class ShowConfirmationOperationModal extends Component
 
     public function confirmOperation()
     {
-        $this->dispatch('confirmOperation');
+        if ($this->type == 'user') {
+            $this->dispatch('confirmUserOperation');
+        } else if ($this->type == 'table') {
+            $this->dispatch('confirmTableOperation');
+        } else {
+            $this->dispatch('confirmOperation');
+        }
+
         $this->hideOperationModal();
     }
 }
