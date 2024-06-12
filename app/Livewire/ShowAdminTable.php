@@ -12,11 +12,12 @@ class ShowAdminTable extends Component
     use WithPagination;
 
     public $isTableAdministration = false;
-    public $search;
+    public $search = '';
     public $tableSelected;
 
     public function mount()
     {
+        $this->resetPage();
         $this->searchTables();
     }
 
@@ -29,9 +30,6 @@ class ShowAdminTable extends Component
     public function searchTables()
     {
         return Table::where('number', 'like', '%' . $this->search . '%')
-            ->orWhere('capacity', 'like', '%' . $this->search . '%')
-            ->orWhere('created_at', 'like', '%' . $this->search . '%')
-            ->orWhere('updated_at', 'like', '%' . $this->search . '%')
             ->paginate(5);
     }
 
@@ -82,5 +80,10 @@ class ShowAdminTable extends Component
     public function refresh()
     {
         $this->searchTables();
+    }
+
+    public function updatingSearch()
+    {
+        $this->resetPage();
     }
 }

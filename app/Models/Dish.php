@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Dish extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $fillable = [
         'name',
         'type',
         'price',
-        'image'
+        'image',
+        'visibility_status'
     ];
 
     public function orders()

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('type');
             $table->decimal('price', 8, 2);
             $table->string('image')->nullable();
+            $table->timestamp('visibility_status')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

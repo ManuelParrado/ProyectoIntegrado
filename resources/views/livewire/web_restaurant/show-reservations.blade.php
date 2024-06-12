@@ -35,9 +35,11 @@
                             @foreach ($reservations as $reservation)
                                 <div class="bg-gray-50 py-4 px-6 w-full shadow-md rounded-md flex justify-around items-center">
                                     <div class="inline-grid w-full">
-                                        <span class="pb-3">Creación de la reserva: {{\Carbon\Carbon::parse($reservation->created_at)->format('d/m/Y')}}</span>
-                                        <span>Fecha de reserva: {{\Carbon\Carbon::parse($reservation->date)->format('d/m/Y')}}</span>
-                                        <span>Hora: {{$reservation->timeslot}}</span>
+                                        <p class="pb-3"><span class="font-semibold">Fecha de la reserva: </span>{{\Carbon\Carbon::parse($reservation->created_at)->format('d/m/Y')}}</p>
+                                        <p><span class="font-semibold">Día: </span>{{\Carbon\Carbon::parse($reservation->date)->format('d/m/Y')}}</p>
+                                        <p><span class="font-semibold">Hora: </span>{{$reservation->timeslot}}</p>
+                                        <p><span class="font-semibold">Número de mesa: </span>{{$reservation->number}}</p>
+                                        <p><span class="font-semibold">Capacidad: </span>{{$reservation->capacity}}</p>
                                         @if ($reservation->deleted_at != null)
                                             <span class="text-red-500 font-bold">Cancelada el día {{\Carbon\Carbon::parse($reservation->updated_at)->format('d/m/Y')}}</span>
                                         @else
@@ -46,7 +48,7 @@
                                     </div>
                                     @if ($reservation->deleted_at == null)
                                         <div class="space-y-3 flex-row items-center">
-                                            <x-edit-button>Editar</x-edit-button>
+                                            <x-edit-button wire:click='showSearchReservationModal({{ $reservation->id }})'>Cambiar</x-edit-button>
                                             <x-delete-button wire:click='showConfirmationDeleteModal({{ json_encode($reservation) }})'>Cancelar</x-delete-button>
                                         </div>
                                     @endif

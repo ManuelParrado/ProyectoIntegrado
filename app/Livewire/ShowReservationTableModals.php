@@ -108,7 +108,7 @@ class ShowReservationTableModals extends Component
             $this->reservationTimeslot = $reservation->timeslot;
             $this->tableNumber = $reservation->table_id;
             $this->isCreateMode = false;
-            $this->modalTitle = 'Editar reserva';
+            $this->modalTitle = 'Cambiar reserva';
         } else {
             $this->isCreateMode = true;
             $this->modalTitle = 'Hacer reserva';

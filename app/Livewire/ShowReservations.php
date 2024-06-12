@@ -27,6 +27,11 @@ class ShowReservations extends Component
         return view('livewire.web_restaurant.show-reservations', ['reservations' => $reservations]);
     }
 
+    public function showSearchReservationModal($reservationId)
+    {
+        $this->dispatch('openReservationModals', reservationId: $reservationId);
+    }
+
     public function showConfirmationDeleteModal($reservation)
     {
         $this->searchReservations();
@@ -36,29 +41,22 @@ class ShowReservations extends Component
     #[On('refresh')]
     public function searchReservations()
     {
-        $user_id = Auth::user()->id;
+        $user_id = Auth::id();  // Obtener el ID del usuario autenticado
+
+        $query = DB::table('table_user')
+            ->join('tables', 'table_user.table_id', '=', 'tables.id')
+            ->select('tables.number', 'tables.capacity', 'table_user.*')
+            ->where('table_user.user_id', '=', $user_id);
 
         switch ($this->filter) {
-            case 'all':
-                return DB::table('table_user')
-                    ->where('user_id', $user_id)
-                    ->paginate(4);
-
             case 'active':
-                return DB::table('table_user')
-                    ->where('user_id', $user_id)
-                    ->whereNull('deleted_at')
-                    ->paginate(4);
-
+                $query->whereNull('table_user.deleted_at');  // Filtra por mesas activas
+                break;
             case 'cancelled':
-                return DB::table('table_user')
-                    ->where('user_id', $user_id)
-                    ->whereNotNull('deleted_at')
-                    ->paginate(4);
-
-            default:
-                # code...
+                $query->whereNotNull('table_user.deleted_at');  // Filtra por mesas canceladas
                 break;
         }
+
+        return $query->paginate(4);  // Pagina los resultados
     }
 }

@@ -35,6 +35,8 @@ class ShowConfirmationOperationModal extends Component
             $this->dispatch('confirmUserOperation');
         } else if ($this->type == 'table') {
             $this->dispatch('confirmTableOperation');
+        } else if ($this->type == 'dish') {
+            $this->dispatch('confirmDishOperation');
         } else {
             $this->dispatch('confirmOperation');
         }

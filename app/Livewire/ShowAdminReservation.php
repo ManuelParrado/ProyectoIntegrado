@@ -13,7 +13,7 @@ class ShowAdminReservation extends Component
     use WithPagination;
 
 
-    public $isReservationAdministration = true;
+    public $isReservationAdministration = false;
     public $selected_date;
     public $filter;
     public $statusFilter;
