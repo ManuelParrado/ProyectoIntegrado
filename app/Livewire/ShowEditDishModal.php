@@ -64,7 +64,6 @@ class ShowEditDishModal extends Component
             $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error al modificar el plato');
 
 
-        $this->image_key = rand();
         $this->dispatch('refresh');
         $this->hideEditDishModal();
     }
@@ -77,7 +76,7 @@ class ShowEditDishModal extends Component
             $this->dispatch('showImageModal', image: $temporaryUrl, temporary: true);
         } else {
             // En caso de que no haya un archivo o no sea el tipo esperado
-            $this->dispatch('showImageModal', image: null, temporary: true);
+            $this->dispatch('showImageModal', image: $this->old_image, temporary: false);
         }
     }
 

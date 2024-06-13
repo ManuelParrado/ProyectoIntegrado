@@ -98,6 +98,8 @@
                                                 <span class="text-green-500 font-bold">Activa</span>
                                             @endif
                                         </p>
+                                        <p class="pb-3"><span class="font-semibold">Creado el:</span> {{ \Carbon\Carbon::parse($dish->created_at)->format('d/m/Y H:i:s') }}</p>
+                                        <p class="pb-3"><span class="font-semibold">Modificado el:</span> {{ \Carbon\Carbon::parse($dish->updated_at)->format('d/m/Y H:i:s') }}</p>
                                     </div>
                                     <div class="flex-row content-center space-y-3 p-3">
                                         <x-edit-button wire:click='showEditDishModal({{ $dish }})' >Editar</x-edit-button>

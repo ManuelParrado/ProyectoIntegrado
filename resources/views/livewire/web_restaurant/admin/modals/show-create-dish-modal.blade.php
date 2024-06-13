@@ -15,7 +15,7 @@
                     </button>
                 </div>
                 <!-- Modal body -->
-                <form wire:submit="editDish">
+                <form wire:submit="createDish">
                     <!-- Email Address -->
                     <div class="px-6 py-3 space-y-3">
 
@@ -63,11 +63,11 @@
                             <!-- File Input -->
                             <div class="mb-3 mt-3">
                                 <label class="block mb-2 text-base font-medium text-gray-900" for="file_input">Subir imagen</label>
-                                <input wire:key='{{$image_key}}' wire:model='new_image' class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file_input" type="file" >
-                                <x-input-error :messages="$errors->get('new_image')" class="mt-2" />
+                                <input wire:key='{{$image_key}}' wire:model='image' class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file_input" type="file" accept="image/*">
+                                <x-input-error :messages="$errors->get('image')" class="mt-2" />
                             </div>
 
-                            @if($new_image)
+                            @if($image)
                                 <input type="button" class="flex align-self-start pb-3 hover:underline font-semibold" wire:click="showDishImage" value="Ver Imagen">
                             @endif
 
@@ -80,7 +80,7 @@
 
                     </div>
                     <div class="flex items-center p-4 md:p-5 space-x-3 rtl:space-x-reverse border-t bg-gray-100 border-gray-200 rounded-b">
-                        <x-confirm-button type="submit">Editar</x-confirm-button>
+                        <x-confirm-button type="submit">Crear</x-confirm-button>
                         <x-decline-button type="button" wire:click='hideCreateDishModal'>Cerrar</x-decline-button>
                     </div>
                 </form>

@@ -2,20 +2,27 @@
 
 namespace App\Livewire;
 
-use App\Models\Table;
+use App\Models\Dish;
 use Livewire\Component;
 
 class ShowDish extends Component
 {
-    public $tables;
+
+    public $typeFilter;
 
     public function mount()
     {
-        $this->tables = Table::all();
+        $this->typeFilter = 'appetizer';
     }
 
     public function render()
     {
-        return view('livewire.web_restaurant.show-dish');
+        $dishes = $this->searchDishes();
+        return view('livewire.web_restaurant.show-dish', ['dishes' => $dishes]);
+    }
+
+    public function searchDishes()
+    {
+        return Dish::where('type', $this->typeFilter)->get();
     }
 }

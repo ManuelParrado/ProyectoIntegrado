@@ -50,6 +50,8 @@
                             <x-input-error :messages="$errors->get('visibility_status')" class="mt-2" />
                         </div>
 
+                        <input type="button" class="flex align-self-start pb-3 hover:underline font-semibold" wire:click="showDishImage" value="Ver Imagen">
+
                         <div
                             x-data="{ uploading: false, progress: 0 }"
                             x-on:livewire-upload-start="uploading = true"
@@ -63,12 +65,12 @@
                             <!-- File Input -->
                             <div class="mb-3 mt-3">
                                 <label class="block mb-2 text-base font-medium text-gray-900" for="file_input">Subir imagen</label>
-                                <input wire:key='{{$image_key}}' wire:model='new_image' class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file_input" type="file" >
+                                <input wire:key='{{$image_key}}' wire:model='new_image' class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file_input" type="file" accept="image/*">
                                 <x-input-error :messages="$errors->get('new_image')" class="mt-2" />
                             </div>
 
                             @if($new_image)
-                                <input type="button" class="flex align-self-start pb-3 hover:underline font-semibold" wire:click="showDishImage" value="Ver Imagen">
+                                <input type="button" class="flex align-self-start pb-3 hover:underline font-semibold" wire:click="showDishImage" value="Ver Imagen Nueva">
                             @endif
 
                             <!-- Progress Bar -->

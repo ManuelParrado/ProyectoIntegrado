@@ -1,3 +1,3 @@
 <x-app-layout>
-    <livewire:showwelcome />
+        <livewire:showwelcome />
 </x-app-layout>

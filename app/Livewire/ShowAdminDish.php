@@ -22,6 +22,7 @@ class ShowAdminDish extends Component
     public function mount()
     {
         $this->filter = 'all';
+        $this->statusFilter = 'all';
     }
 
     public function render()

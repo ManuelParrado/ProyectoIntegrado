@@ -11,6 +11,7 @@ class ShowSettingSidebar extends Component
 
     public $isProfileViewVisible = false;
     public $isReservationViewVisible = true;
+    public $isOrderViewVisible = false;
 
     public function render()
     {
@@ -32,23 +33,26 @@ class ShowSettingSidebar extends Component
 
     public function showReservationView()
     {
-        $this->hideProfileView();
+        $this->resetViews();
         $this->isReservationViewVisible = true;
-    }
-
-    public function hideReservationView()
-    {
-        $this->isReservationViewVisible = false;
     }
 
     public function showProfileView()
     {
-        $this->hideReservationView();
+        $this->resetViews();
         $this->isProfileViewVisible = true;
     }
 
-    public function hideProfileView()
+    public function showOrderView()
+    {
+        $this->resetViews();
+        $this->isOrderViewVisible = true;
+    }
+
+    public function resetViews()
     {
         $this->isProfileViewVisible = false;
+        $this->isReservationViewVisible = false;
+        $this->isOrderViewVisible = false;
     }
 }

@@ -10,17 +10,17 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'welcome')->name('welcome');
 
 Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
+    ->middleware(['auth_custom', 'verified'])
     ->name('dashboard');
 
 Route::view('profile', 'profile')
-    ->middleware(['auth'])
+    ->middleware(['auth_custom'])
     ->name('profile');
 
 require __DIR__ . '/auth.php';
 
-Route::resource('admin', UserController::class)->middleware(['auth', 'admin']);
-Route::resource('order', OrderController::class)->middleware(['auth']);
+Route::resource('admin', UserController::class)->middleware(['auth_custom', 'admin']);
+Route::resource('order', OrderController::class)->middleware(['auth_custom']);
 Route::resource('dish', DishController::class);
-Route::resource('table', TableController::class)->middleware(['auth']);
-Route::resource('reservations', ReservationsController::class)->middleware(['auth']);
+Route::resource('table', TableController::class)->middleware(['auth_custom']);
+Route::resource('reservations', ReservationsController::class)->middleware(['auth_custom']);
