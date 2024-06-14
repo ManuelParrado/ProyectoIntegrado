@@ -13,8 +13,8 @@ class ShowAdminDish extends Component
     use WithPagination, WithFileUploads;
 
     public $isDishAdministration = true;
-    public $filter;
-    public $statusFilter;
+    public $filter = 'all';
+    public $statusFilter = 'all';
     public $search = '';
 
     public $dishSelected;
@@ -35,7 +35,6 @@ class ShowAdminDish extends Component
     {
         $query = Dish::query();
 
-        // Aplicar la búsqueda y el filtro antes de paginar.
         if (!empty($this->search)) {
             $query->where('name', 'like', '%' . $this->search . '%');
         }
@@ -53,24 +52,37 @@ class ShowAdminDish extends Component
         return $query->paginate(5);
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilter()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingStatusFilter()
+    {
+        $this->resetPage();
+    }
+
     public function showConfirmationModal($dish_id)
     {
-        $this->dispatch('openOperationConfirmationModal', message: '¿Estas seguro de eliminar este plato?', type: 'dish');
         $this->dishSelected = $dish_id;
+        $this->dispatch('openOperationConfirmationModal', message: '¿Estas seguro de eliminar este plato?', type: 'dish');
     }
 
     #[On('confirmDishOperation')]
     public function deleteDish()
     {
         $dish = Dish::find($this->dishSelected);
-
-        $dish->delete();
-
-        if ($dish)
+        if ($dish) {
+            $dish->delete();
             $this->dispatch('openSuccessNotification', message: 'El plato ha sido eliminado correctamente');
-        else
+        } else {
             $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error al eliminar el plato');
-
+        }
         $this->resetPage();
     }
 
@@ -102,12 +114,7 @@ class ShowAdminDish extends Component
     }
 
     #[On('refresh')]
-    public function updatingSearch()
-    {
-        $this->resetPage();
-    }
-
-    public function updatingFilter()
+    public function refresh()
     {
         $this->resetPage();
     }
@@ -115,5 +122,6 @@ class ShowAdminDish extends Component
     public function clearSearch()
     {
         $this->search = '';
+        $this->resetPage();
     }
 }

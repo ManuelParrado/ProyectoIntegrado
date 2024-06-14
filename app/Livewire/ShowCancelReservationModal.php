@@ -36,9 +36,15 @@ class ShowCancelReservationModal extends Component
 
     public function doCancelReservation()
     {
-        DB::table('table_user')
+        $affeted = DB::table('table_user')
             ->where('id', $this->reservation['id'])
             ->update(['deleted_at' => now()]);
+
+        if ($affeted) {
+            $this->dispatch('openSuccessNotification', message: 'La reserva ha sido cancelada correctamente');
+        } else {
+            $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error al cancelar la reserva');
+        }
 
         $this->dispatch('refresh');
 

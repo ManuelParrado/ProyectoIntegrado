@@ -23,6 +23,8 @@ class ShowDish extends Component
 
     public function searchDishes()
     {
-        return Dish::where('type', $this->typeFilter)->get();
+        return Dish::where('type', $this->typeFilter)
+            ->whereNull('visibility_status')
+            ->get();
     }
 }

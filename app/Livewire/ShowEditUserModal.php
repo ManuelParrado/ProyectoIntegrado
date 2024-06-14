@@ -13,7 +13,7 @@ class ShowEditUserModal extends Component
     public $isEditUserModalVisible = false;
     public $user_id;
 
-    #[Validate('required|email|max:255')]
+    #[Validate('required|email|unique:users,email|max:255')]
     public $email;
 
     #[Validate('required|string|min:2|max:50')]
@@ -55,7 +55,7 @@ class ShowEditUserModal extends Component
         $userDB->last_name = $this->last_name;
         $userDB->telephone_number = $this->telephone_number;
         $userDB->role = $this->role;
-        $affected = $userDB->save();
+        $affected = $userDB->update();
 
         $this->dispatch('setEditConfirmationMessage', affected: $affected);
         $this->hideEditUserModal();

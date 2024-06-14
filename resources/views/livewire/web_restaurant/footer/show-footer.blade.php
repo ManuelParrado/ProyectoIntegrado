@@ -1,5 +1,5 @@
 <div>
-    <footer class="bg-gray-800 text-white py-8 z-50">
+    <div class="bg-gray-800 text-white py-8">
         <div class="container mx-auto px-6 md:px-12 flex flex-wrap justify-between items-center">
             <div class="w-full md:w-1/3 mb-6 md:mb-0">
                 <h3 class="text-lg font-semibold">Nuestro Restaurante</h3>
@@ -33,7 +33,7 @@
                 </div>
             </div>
         </div>
-    </footer>
+    </div>
 </div>
 
 

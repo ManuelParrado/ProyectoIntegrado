@@ -9,8 +9,8 @@ use Livewire\Component;
 class ShowSettingSidebar extends Component
 {
 
-    public $isProfileViewVisible = false;
-    public $isReservationViewVisible = true;
+    public $isProfileViewVisible = true;
+    public $isReservationViewVisible = false;
     public $isOrderViewVisible = false;
 
     public function render()

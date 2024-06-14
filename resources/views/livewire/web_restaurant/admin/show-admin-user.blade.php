@@ -37,9 +37,6 @@
                                 </svg>
                             </button>
                         </div>
-                        <div class="flex w-full text-{{$confirmationColor}}-500 text-center">
-                            {{$confirmationMessage}}
-                        </div>
                         @if($users->count() == 0)
                             <p class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">No se encuentran usuarios</p>
                         @else

@@ -107,6 +107,12 @@ class ShowAdminReservation extends Component
         $this->searchReservations();
     }
 
+    public function showConfirmationDeleteModal($reservation)
+    {
+        $this->searchReservations();
+        $this->dispatch('showConfirmationDeleteModal', reservation: $reservation);
+    }
+
     public function showSearchReservationModal($reservationId)
     {
         $this->dispatch('openReservationModals', reservationId: $reservationId);

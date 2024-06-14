@@ -114,7 +114,6 @@
             </div>
         </div>
     </div>
-    <livewire:showimagemodal />
     <livewire:showeditdishmodal />
     <livewire:showcreatedishmodal />
 </div>

@@ -120,7 +120,7 @@
                                                 @if($reservation->deleted_at == null)
                                                     <div class="flex-row content-center space-y-3 p-3">
                                                         <x-edit-button wire:click='showSearchReservationModal({{ $reservation->id }})'>Cambiar</x-edit-button>
-                                                        <x-delete-button >Cancelar</x-delete-button>
+                                                        <x-delete-button wire:click='showConfirmationDeleteModal({{ json_encode($reservation) }})'>Cancelar</x-delete-button>
                                                     </div>
                                                 @endif
                                             </div>
@@ -133,6 +133,7 @@
                 </div>
             </div>
         </div>
+        <livewire:showcancelreservationmodal />
     </div>
     <script>
         function collapse(id) {

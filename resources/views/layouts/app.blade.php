@@ -31,6 +31,7 @@
 
             <!-- Page Content -->
             <main>
+                <livewire:showimagemodal />
                 <livewire:showsuccessnotification />
                 <livewire:showerrornotification />
                 <livewire:showloginmodal />
@@ -39,6 +40,8 @@
                 {{ $slot }}
             </main>
         </div>
-        <livewire:showfooter />
+        <footer class="w-full">
+            <livewire:showfooter />
+        </footer>
     </body>
 </html>

@@ -23,7 +23,7 @@
                     </x-nav-link>
                 @endif
                 <x-nav-link :href="route('dish.index')" :active="request()->routeIs('dish.index')">
-                    Carta
+                    Nuestros Platos
                 </x-nav-link>
                 <x-dropdown align="bottom" width="48">
                     <x-slot name="trigger">
@@ -52,7 +52,7 @@
                     <a id="btn-message" class="button-message" href="{{ route('profile') }}">
                         <div class="content-avatar">
                             <div class="avatar">
-                                <svg class="user-img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12,12.5c-3.04,0-5.5,1.73-5.5,3.5s2.46,3.5,5.5,3.5,5.5-1.73,5.5-3.5-2.46-3.5-5.5-3.5Zm0-.5c1.66,0,3-1.34,3-3s-1.34-3-3-3-3,1.34-3,3,1.34,3,3,3Z"></path></svg>
+                                <img src="{{ asset('storage/' . auth()->user()->image) }}" alt="Avatar" >
                             </div>
                         </div>
                         <div class="notice-content">

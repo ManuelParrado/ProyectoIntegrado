@@ -3,8 +3,6 @@
 namespace App\Livewire;
 
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -16,8 +14,6 @@ class ShowAdminUser extends Component
     public $isUserAdministration;
     public $search = '';
     public $filter;
-    public $confirmationMessage = '';
-    public $confirmationColor = '';
     public $userSelected;
 
     public function mount()
@@ -41,15 +37,13 @@ class ShowAdminUser extends Component
     public function deleteUser()
     {
         $user = User::find($this->userSelected);
+        $affected = $user->delete();
+        $this->resetPage();
 
-        $user->delete();
-
-        if ($user) {
-            $this->confirmationMessage = 'Usuario eliminado correctamente';
-            $this->confirmationColor = 'green';
+        if ($affected) {
+            $this->dispatch('openSuccessNotification', message: 'El usuario ha sido eliminado correctamente');
         } else {
-            $this->confirmationMessage = 'Usuario no encontrado';
-            $this->confirmationColor = 'red';
+            $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error al eliminar el usuario');
         }
     }
 
@@ -92,20 +86,29 @@ class ShowAdminUser extends Component
         return $query->paginate(3);
     }
 
+    public function updatingSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function updatingFilter()
+    {
+        $this->resetPage();
+    }
+
     public function clearSearch()
     {
         $this->search = '';
+        $this->resetPage();
     }
 
     #[On('setEditConfirmationMessage')]
     public function setEditConfirmationMessage($affected)
     {
         if ($affected) {
-            $this->confirmationMessage = 'Usuario editado correctamente';
-            $this->confirmationColor = 'green';
+            $this->dispatch('openSuccessNotification', message: 'El usuario ha sido modificado correctamente');
         } else {
-            $this->confirmationMessage = 'No se pudo editar el usuario';
-            $this->confirmationColor = 'red';
+            $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error al modificar el usuario');
         }
     }
 

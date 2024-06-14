@@ -29,10 +29,13 @@ class ShowRegisterModal extends Component
     {
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
+            'last_name' => ['required', 'string', 'max:255'],
             'telephone_number' => ['required', 'numeric', 'max_digits:9'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
+
+        $validated['image'] = 'images/user/usuario_por_defecto.png';
 
         $validated['password'] = Hash::make($validated['password']);
 

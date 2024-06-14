@@ -17,8 +17,7 @@ class ShowAdminTable extends Component
 
     public function mount()
     {
-        $this->resetPage();
-        $this->searchTables();
+        $this->resetPage(); // Buena práctica para asegurar que empieces en la página 1 al cargar el componente
     }
 
     public function render()
@@ -29,29 +28,31 @@ class ShowAdminTable extends Component
 
     public function searchTables()
     {
+        // La búsqueda se restablece al cambiar el término de búsqueda
         return Table::where('number', 'like', '%' . $this->search . '%')
             ->paginate(5);
     }
 
     public function showConfirmationModal($table_id)
     {
-        $this->dispatch('openOperationConfirmationModal', message: '¿Estas seguro de eliminar esta mesa?', type: 'table');
+        // Asegurarse de guardar el ID de la mesa seleccionada para futuras operaciones
         $this->tableSelected = $table_id;
+        $this->dispatch('openOperationConfirmationModal', message: '¿Estás seguro de eliminar esta mesa?', type: 'table');
     }
 
     #[On('confirmTableOperation')]
-    public function deleteUser()
+    public function deleteTable()
     {
+        // Encuentra la mesa por el ID seleccionado y elimínala
         $table = Table::find($this->tableSelected);
 
-        $table->delete();
-
-        if ($table)
+        if ($table && $table->delete()) {
             $this->dispatch('openSuccessNotification', message: 'La mesa ha sido eliminada correctamente');
-        else
+        } else {
             $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error al eliminar la mesa');
+        }
 
-        $this->dispatch('refresh');
+        $this->refresh(); // Actualiza la lista después de eliminar
     }
 
     public function openCreateTableModal()
@@ -61,7 +62,7 @@ class ShowAdminTable extends Component
 
     public function openEditTableModal($table)
     {
-        $this->dispatch('showEditTableModal', ['table' => $table]);
+        $this->dispatch('showEditTableModal', table: $table);
     }
 
     #[On('showTableAdministration')]
@@ -79,11 +80,12 @@ class ShowAdminTable extends Component
     #[On('refresh')]
     public function refresh()
     {
+        $this->resetPage(); // Restablece la paginación al actualizar la lista
         $this->searchTables();
     }
 
     public function updatingSearch()
     {
-        $this->resetPage();
+        $this->resetPage(); // Restablece la paginación cuando el término de búsqueda cambia
     }
 }

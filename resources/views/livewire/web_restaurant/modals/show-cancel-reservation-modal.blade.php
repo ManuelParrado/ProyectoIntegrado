@@ -14,7 +14,7 @@
                             <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 11V6m0 8h.01M19 10a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
                         </svg>
                         <h3 class="mb-5 text-lg font-normal text-gray-500">
-                            ¿Está seguro de que desea cancelar la reserva para el dia {{$reservationDate}} a las {{$reservationTimeslot}}?
+                            ¿Está seguro de que desea cancelar la reserva para el dia {{\Illuminate\Support\Carbon::parse($reservationDate)->format('d/m/Y')}} a las {{$reservationTimeslot}}?
                         </h3>
                         <div class="inline-flex justify-center">
                             <x-confirm-button wire:click='doCancelReservation'>Confirmar</x-confirm-button>
