@@ -3,10 +3,10 @@
 namespace App\Livewire;
 
 use App\Models\Table;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
-use Livewire\Attributes\Reactive;
 use Livewire\Component;
 
 class ShowReservationTableModals extends Component
@@ -35,9 +35,22 @@ class ShowReservationTableModals extends Component
 
     public function reserveComprobation()
     {
-        if ($this->reservationDate != null) {
+        if ($this->reservationDate != null && $this->reservationTimeslot != null) {
             $this->comprobationSearchErrorMessage = '';
 
+            // Convertir la fecha de reserva a instancia de Carbon
+            $reservationDate = Carbon::parse($this->reservationDate);
+
+            // Obtener la fecha y hora actual
+            $now = Carbon::now();
+
+            // Comprobar que la fecha de reserva no sea anterior a la fecha actual
+            if ($reservationDate->lt($now->startOfDay())) {
+                $this->comprobationSearchErrorMessage = 'La fecha de reserva no puede ser anterior a hoy.';
+                return;
+            }
+
+            // Comprobación de disponibilidad de mesas
             $this->id_tables_reserved = DB::table('table_user')
                 ->select('table_id')
                 ->where('date', '=', $this->reservationDate)
@@ -50,9 +63,10 @@ class ShowReservationTableModals extends Component
 
             $this->showReservationModal();
         } else {
-            $this->comprobationSearchErrorMessage = 'Introduzca los datos de búsqueda correctamente';
+            $this->comprobationSearchErrorMessage = 'Por favor, introduzca los datos de la reserva.';
         }
     }
+
 
     public function showTableInformation($table_id)
     {

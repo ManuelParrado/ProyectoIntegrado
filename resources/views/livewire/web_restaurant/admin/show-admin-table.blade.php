@@ -17,16 +17,13 @@
                 </aside>
                 <div class="w-full h-auto flex justify-center items-center">
                     <div class="w-full p-4 h-full space-y-4 flex-row text-lg">
-                        <div wire:loading class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
-                            Cargando ...
-                        </div>
                         @if($tables->isEmpty())
-                        <div wire:loading.remove class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
+                        <div class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
                             No se encuentra niguna mesa
                         </div>
                         @else
                             @foreach ($tables as $table)
-                            <div wire:loading.remove class="bg-gray-50 py-4 px-6 w-auto shadow-md rounded-md flex justify-between items-center">
+                            <div class="bg-gray-50 py-4 px-6 w-auto shadow-md rounded-md flex justify-between items-center">
                                 <div class="inline-grid w-1/2">
                                     <p class="pb-3"><span class="font-semibold">Número de mesa:</span> {{ $table->number }}</p>
                                     <p class="pb-3"><span class="font-semibold">Capacidad:</span> {{ $table->capacity }}</p>

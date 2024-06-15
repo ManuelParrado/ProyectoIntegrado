@@ -30,7 +30,7 @@ class ShowRegisterModal extends Component
         $validated = $this->validate([
             'name' => ['required', 'string', 'max:255'],
             'last_name' => ['required', 'string', 'max:255'],
-            'telephone_number' => ['required', 'numeric', 'max_digits:9'],
+            'telephone_number' => ['required', 'numeric', 'digits:9'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'string', 'confirmed', Rules\Password::defaults()],
         ]);
@@ -43,7 +43,13 @@ class ShowRegisterModal extends Component
 
         Auth::login($user);
 
-        $this->redirect(route('dashboard', absolute: false), navigate: true);
+        $this->redirect(route('welcome', absolute: false), navigate: true);
+    }
+
+    public function showLoginModal()
+    {
+        $this->hideRegisterModal();
+        $this->dispatch('openLoginModal');
     }
 
     #[On('openRegisterModal')]

@@ -4,6 +4,7 @@ namespace App\Livewire;
 
 use App\Models\User;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 use Livewire\Attributes\On;
 use Livewire\Attributes\Validate;
 use Livewire\Component;
@@ -13,16 +14,11 @@ class ShowEditUserModal extends Component
     public $isEditUserModalVisible = false;
     public $user_id;
 
-    #[Validate('required|email|unique:users,email|max:255')]
     public $email;
-
-    #[Validate('required|string|min:2|max:50')]
     public $name;
 
-    #[Validate('required|string|min:2|max:50')]
     public $last_name;
 
-    #[Validate('required|digits:9')]
     public $telephone_number;
 
     #[Validate('required|string|in:admin,user')]
@@ -47,15 +43,21 @@ class ShowEditUserModal extends Component
 
     public function editUser()
     {
-        $this->validate();
+        $validated = $this->validate([
+            'name' => ['required', 'string', 'max:255'],
+            'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($this->user_id)],
+            'role' => ['required', 'string', 'in:user,admin'],
+            'last_name' => ['required', 'string', 'max:255'],
+            'telephone_number' => ['required', 'numeric', 'digits:9'],
+        ]);
 
         $userDB = User::find($this->user_id);
-        $userDB->email = $this->email;
-        $userDB->name = $this->name;
-        $userDB->last_name = $this->last_name;
-        $userDB->telephone_number = $this->telephone_number;
-        $userDB->role = $this->role;
-        $affected = $userDB->update();
+        $userDB->email = $validated['email'];
+        $userDB->name = $validated['name'];
+        $userDB->last_name = $validated['last_name'];
+        $userDB->telephone_number = $validated['telephone_number'];
+        $userDB->role = $validated['role'];
+        $affected = $userDB->save();
 
         $this->dispatch('setEditConfirmationMessage', affected: $affected);
         $this->hideEditUserModal();

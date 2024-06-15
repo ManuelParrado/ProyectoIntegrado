@@ -3,6 +3,7 @@
 namespace App\Livewire;
 
 use App\Models\User;
+use Illuminate\Support\Facades\DB;
 use Livewire\Attributes\On;
 use Livewire\Component;
 use Livewire\WithPagination;
@@ -36,16 +37,38 @@ class ShowAdminUser extends Component
     #[On('confirmUserOperation')]
     public function deleteUser()
     {
-        $user = User::find($this->userSelected);
-        $affected = $user->delete();
-        $this->resetPage();
+        DB::beginTransaction();
 
-        if ($affected) {
-            $this->dispatch('openSuccessNotification', message: 'El usuario ha sido eliminado correctamente');
-        } else {
-            $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error al eliminar el usuario');
+        try {
+            // Verifica primero si el usuario existe
+            $userExists = DB::table('users')->where('id', $this->userSelected)->exists();
+            if (!$userExists) {
+                $this->dispatch('openErrorNotification', message: 'Usuario no encontrado');
+                return;
+            }
+
+            // Desvincula las claves foráneas en table_user
+            DB::table('table_user')->where('user_id', $this->userSelected)->delete();
+
+            // Elimina el usuario
+            $affected = DB::table('users')->where('id', $this->userSelected)->delete();
+
+            DB::commit();
+
+            if ($affected) {
+                $this->dispatch('openSuccessNotification', message: 'El usuario ha sido eliminado correctamente');
+            } else {
+                $this->dispatch('openErrorNotification', message: 'Ha ocurrido un error al eliminar el usuario');
+            }
+
+            $this->resetPage();
+        } catch (\Exception $e) {
+            DB::rollBack();
+            $this->dispatch('openErrorNotification', message: 'Error al eliminar el usuario: ' . $e->getMessage());
         }
     }
+
+
 
     public function openEditUserModal($user)
     {

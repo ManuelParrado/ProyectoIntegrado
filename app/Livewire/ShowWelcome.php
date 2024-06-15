@@ -21,4 +21,13 @@ class ShowWelcome extends Component
 
         return view('livewire.web_restaurant.show-welcome');
     }
+
+    public function showReservationTableModal()
+    {
+        if (auth()->check()) {
+            $this->dispatch('openReservationModals');
+        } else {
+            $this->dispatch('openLoginModal');
+        }
+    }
 }

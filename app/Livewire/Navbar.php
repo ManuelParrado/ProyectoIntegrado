@@ -17,7 +17,11 @@ class Navbar extends Component
 
     public function showReservationModals()
     {
-        $this->dispatch('openReservationModals');
+        if (auth()->check()) {
+            $this->dispatch('openReservationModals');
+        } else {
+            $this->showLoginModal();
+        }
     }
 
     public function showSidebar()

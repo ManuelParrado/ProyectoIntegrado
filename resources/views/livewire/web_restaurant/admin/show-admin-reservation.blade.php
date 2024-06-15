@@ -51,15 +51,12 @@
                 </aside>
                 <div class="w-full h-auto flex justify-center items-center">
                     <div class="w-full p-4 h-full space-y-4 flex-row text-lg">
-                        <div wire:loading class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
-                            Cargando ...
-                        </div>
                         @if($groupedReservations->isEmpty())
-                            <div wire:loading.remove class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
+                            <div class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
                                 Ninguna reserva para el día {{\Illuminate\Support\Carbon::parse($selected_date)->format('d/m/Y')}}
                             </div>
                         @else
-                            <div wire:loading.remove class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
+                            <div class="bg-gray-50 p-4 w-full shadow-md rounded-md flex justify-around items-center">
                                 Total de personas: {{$totalCapacity}}
                             </div>
                             @foreach($groupedReservations as $timeslot => $reservations)
@@ -70,7 +67,7 @@
                                         $totalCapacityByTimeslot += $reservation->table_capacity;
                                     @endphp
                                 @endforeach
-                                <div wire:loading.remove class="space-y-2">
+                                <div class="space-y-2">
                                     <button onclick="collapse('dropdown-{{ $selected_date }}-{{ str_replace(' ', '', $timeslot) }}')"
                                         id='button-{{ $selected_date }}-{{ str_replace(' ', '', $timeslot) }}'
                                         type="button"

@@ -42,7 +42,7 @@
                             </x-dropdown-link>
                         </button>
                         <button class="w-full text-start">
-                            <x-dropdown-link wire:click='logout'>
+                            <x-dropdown-link :href="route('order.index')">
                                 {{ __('Pedir a domicilio') }}
                             </x-dropdown-link>
                         </button>

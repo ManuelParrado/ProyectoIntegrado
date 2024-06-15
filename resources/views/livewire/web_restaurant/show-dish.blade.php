@@ -24,19 +24,19 @@
             <div class="bg-transparent rounded-md p-4 flex flex-wrap justify-center items-center gap-4">
                 @if($dishes->isEmpty())
                     <div class="p-4">
-                        Lo sentimos, este tipo de producto no esta disponible actualmente ...
+                        Lo sentimos, este tipo de producto no está disponible actualmente...
                     </div>
                 @else
                     @foreach($dishes as $dish)
                         <div class="card-container shadow-md flex-1 min-w-[calc(50%-1rem)] max-w-[calc(50%-1rem)]">
                             <div class="card">
                                 <div class="img-content">
-                                    <img src="{{ asset('storage/' . $dish->image) }}" alt="{{$dish->description}}">
+                                    <img src="{{ Storage::url($dish->image) }}" alt="{{ $dish->description }}">
                                 </div>
                                 <div class="content p-4 bg-black rounded-md">
-                                    <p class="heading font-bold">{{$dish->name}}</p>
+                                    <p class="heading font-bold">{{ $dish->name }}</p>
                                     <p>
-                                        Precio: {{$dish->price}} €
+                                        Precio: €{{ $dish->price }}
                                     </p>
                                 </div>
                             </div>

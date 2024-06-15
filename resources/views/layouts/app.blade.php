@@ -40,8 +40,6 @@
                 {{ $slot }}
             </main>
         </div>
-        <footer class="w-full">
-            <livewire:showfooter />
-        </footer>
+        <livewire:showfooter />
     </body>
 </html>

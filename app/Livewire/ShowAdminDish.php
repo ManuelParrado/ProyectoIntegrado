@@ -12,7 +12,7 @@ class ShowAdminDish extends Component
 {
     use WithPagination, WithFileUploads;
 
-    public $isDishAdministration = true;
+    public $isDishAdministration = false;
     public $filter = 'all';
     public $statusFilter = 'all';
     public $search = '';

@@ -44,9 +44,9 @@ class ShowEditTableModal extends Component
     #[On('showEditTableModal')]
     public function showEditUserModal($table)
     {
-        $this->table_id = $table['table']['id'];
-        $this->number = $table['table']['number'];
-        $this->capacity = $table['table']['capacity'];
+        $this->table_id = $table['id'];
+        $this->number = $table['number'];
+        $this->capacity = $table['capacity'];
         $this->isEditTableModalVisible = true;
     }
 

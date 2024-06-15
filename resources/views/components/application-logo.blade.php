@@ -1,3 +1,3 @@
 <div class="flex items-center">
-    <img class="w-24 h-24 rounded-full shadow-lg" src="{{ asset('storage/images/logo/logo.jpeg') }}" alt="Logo">
+    <img class="w-32 h-32 " src="{{ asset('storage/images/logo/logo.png') }}" alt="Logo">
 </div>

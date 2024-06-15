@@ -25,9 +25,14 @@ class ShowLoginModal extends Component
 
         Session::regenerate();
 
-        $this->redirectIntended(default: route('dashboard', absolute: false), navigate: true);
+        $this->redirectIntended(default: route('welcome', absolute: false), navigate: true);
     }
 
+    public function showRegisterModal()
+    {
+        $this->hideLoginModal();
+        $this->dispatch('openRegisterModal');
+    }
 
     #[On('openLoginModal')]
     public function showLoginModal()

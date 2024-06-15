@@ -34,7 +34,7 @@ new class extends Component
     /**
      * Update the profile information for the currently authenticated user.
      */
-     public function updateProfileInformation(): void
+    public function updateProfileInformation(): void
     {
         $user = Auth::user();
 
@@ -44,7 +44,7 @@ new class extends Component
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', Rule::unique(User::class)->ignore($user->id)],
             'new_image' => ['nullable', 'image', 'max:1024'], // Ensure this is nullable if the image is optional
             'last_name' => ['required', 'string', 'max:255'],
-            'telephone_number' => ['required', 'numeric', 'max_digits:9'],
+            'telephone_number' => ['required', 'numeric', 'digits:9'],
         ]);
 
         // Update user data
