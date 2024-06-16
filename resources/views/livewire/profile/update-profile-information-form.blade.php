@@ -118,7 +118,7 @@ new class extends Component
     </header>
 
     <div class="w-1/3 mt-6">
-        <img class="rounded-full h-40 w-40 object-cover" src="{{ asset('storage/' . Auth::user()->image) }}">
+        <img class="rounded-full h-40 w-40 object-cover border border-1" src="{{ asset('storage/' . Auth::user()->image) }}">
     </div>
 
     <form wire:submit="updateProfileInformation" class="mt-6 space-y-6">
