@@ -135,8 +135,8 @@ new class extends Component
         >
             <!-- File Input -->
             <div class="mb-3 mt-3">
-                <label class="block mb-2 text-base font-medium text-gray-900" for="file_input">Cambiar imagen de perfil</label>
-                <input wire:key='{{$image_key}}' wire:model='new_image' class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file_input" type="file" accept="image/*">
+                <label class="block mb-2 text-base font-medium text-gray-900" for="file_input">Cambiar imagen de perfil (.jpg)</label>
+                <input wire:key='{{$image_key}}' wire:model='new_image' class="block w-full text-base text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50" id="file_input" type="file" accept=".jpg">
                 <x-input-error :messages="$errors->get('new_image')" class="mt-2" />
             </div>
 

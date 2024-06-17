@@ -56,14 +56,6 @@
                                         </p>
                                         <p class="pb-3"><span class="font-semibold">Registro:</span> {{ $user->created_at->format('d/m/Y H:i:s') }}</p>
                                         <p class="pb-3"><span class="font-semibold">Última edición:</span> {{ $user->updated_at->format('d/m/Y H:i:s') }}</p>
-                                        <p class="pb-3">
-                                            <span class="font-semibold">Eliminado:</span>
-                                            @if ($user->deleted_at != null)
-                                                Sí {{ $user->last_name }}
-                                            @else
-                                                No
-                                            @endif
-                                        </p>
                                     </div>
                                     @if ($user->deleted_at == null)
                                         <div class="space-y-3 p-6 flex-row items-center">
